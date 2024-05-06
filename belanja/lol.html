@@ -78,6 +78,13 @@
             font-size: 1.5rem;
         }
 
+        .server {
+            margin-top: -500px; /* Sesuaikan dengan jarak vertikal dari atas */
+            left: 10px; /* Mengubah posisi menjadi kiri */
+            text-align: left;
+            font-size: 1.5rem;
+        }
+
         .order {
           position: absolute;
           margin-top: 700px; /* Sesuaikan dengan jarak vertikal dari atas */
@@ -85,6 +92,7 @@
           text-align: left;
           font-size: 1.5rem;
         }
+
     </style>
 </head>
 <body>
@@ -119,50 +127,56 @@
 </header>
 <div class="container">
     <h1 class="title__list">
-        LIST HARGA LENGKAP <span class="th">CALL OF DUTY MOBILE CRPshop</span>
+        LIST HARGA LENGKAP <span class="th">League Of Legends CRPshop</span>
     </h1>
     <div class="lengkapidata">   
       <div style="text-align: left;">
-        <label for="paymentMethod" style="transform: scale(1); font-size: 2.3rem; display: block; margin-bottom: 10px;">Masukkan PlayerID </label>
-            <input type="number" class="form-control" id="fullName" style="transform: scale(2.2); transform-origin: left; width: 80%;" placeholder="Masukkan PlayerID">
+        <label for="paymentMethod" style="transform: scale(1); font-size: 2.3rem; display: block; margin-bottom: 10px;">Lengkapi Data </label>
+            <input type="number" class="form-control" id="fullName" style="transform: scale(2.2); transform-origin: left; width: 80%;" placeholder="Masukkan ID">
           </div>
     </div>
+    <div class="server">   
+    <div style="text-align: left;">
+      <label for="paymentMethod" style="transform: scale(1); font-size: 2.3rem; display: block; margin-bottom: 10px;">Server</label>
+          <input type="number" class="form-control" id="fullName" style="transform: scale(2.2); transform-origin: left; width: 80%;" placeholder="1234">
+        </div>
+  </div>
 
     <table border="5" class="table">
         <thead>
         <tr>
-            <th>Nominal CP </th>
+            <th>Nominal RP </th>
             <th>Harga Normal</th>
         </tr>
         </thead>
         <tbody>
         <tr onclick="toggleSelection(this)">
-            <td>321 CP</td>
-            <td>Rp 45.000</td>
+            <td>625 RP</td>
+            <td>Rp 50.000</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-            <td>645 CP</td>
-            <td>Rp 90.000</td>
+            <td>775 RP</td>
+            <td>Rp 86.000</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-            <td>800 CP</td>
-            <td>Rp 108.000</td>
+            <td>1525 RP</td>
+            <td>Rp 115.700</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-            <td>1373 CP</td>
-            <td>Rp 180.700</td>
+            <td>1400 RP</td>
+            <td>Rp 150.500</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-            <td>1675 CP</td>
-            <td>Rp 272.000</td>
+            <td>2900 Diamond</td>
+            <td>Rp 215.500</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-            <td>2060 CP</td>
-            <td>Rp 342.000</td>
+            <td>2850 RP</td>
+            <td>Rp 301.000</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-            <td>3565 CP</td>
-            <td>Rp 450.000</td>
+            <td>4600 RP</td>
+            <td>Rp 330.000</td>
         </tr>
         </tbody>
     </table>
