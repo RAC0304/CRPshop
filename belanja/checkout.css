@@ -1,0 +1,151 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Montserrat", Arial, sans-serif;
+    background-color: #1a1a3d;
+    color: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #1a1a3d;
+    padding: 15px 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand img {
+    height: 65px;
+}
+
+.navbar-nav {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.title__list {
+    text-align: center;
+    font-size: 2rem;
+    margin: 30px 0;
+    color: #fff;
+}
+
+.title__list .th {
+    color: #00ff00;
+}
+
+.table-container {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.table {
+    width: 50%;
+    border-collapse: collapse;
+    margin: 0 auto 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(255, 242, 242, 0.1);
+    background-color: white;
+}
+
+.table th,
+.table td {
+    padding: 15px;
+    text-align: left;
+    border: 1px solid #ccc;
+}
+
+.table th {
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.table tr:hover {
+    background-color: #000000;
+}
+
+.table tr.selected {
+    background-color: #00ff00;
+    color: #000;
+}
+
+.order-button {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.order-button .btn {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    color: #000;
+    background-color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 2px solid transparent;
+}
+
+.order-button .btn:hover {
+    background-color: green;
+    color: #fff;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #343a40;
+    color: white;
+    margin-top: 50px;
+}
+
+/* Tambahan */
+.input-container {
+    margin-bottom: 20px;
+}
+
+.input-label {
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-control,
+.form-select {
+    width: 100%;
+    padding: 8px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.payment-method-container,
+.order {
+    margin-top: 20px;
+}

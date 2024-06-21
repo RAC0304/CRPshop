@@ -118,6 +118,6 @@ header {
 }
 
 .btn:hover {
-    background-color: #f00;
+    background-color: green;
     color: #fff;
 }
