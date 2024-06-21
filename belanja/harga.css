@@ -1,64 +1,123 @@
-:root {
-    --blue: #2C2546;
-    --dark-blue: #1B1535;
-    --green: #00EB09;
-    --white: #fff;
-}
-
 * {
-    margin: 0;
-    list-style-type: none;
-    text-decoration: none;
     box-sizing: border-box;
-    font-family: 'Tahoma';
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    background-color: var(--dark-blue);
-    color: var(--white);
+    font-family: Arial, sans-serif;
+    background-color: #1a1a3d;
+    color: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #1a1a3d;
+    padding: 10px 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand img {
+    height: 40px;
+}
+
+.navbar-nav {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
 }
 
 .title__list {
     text-align: center;
-    background-color: var(--blue);
-    opacity: 0.8;
-    z-index: 1;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    margin-top: 75px;
-    color: white;
-}
-
-footer {
-    padding: 2rem;
-    margin-top: 1rem;
-    background-color: var(--blue);
-}
-
-.footer-title {
-    margin-bottom: 1rem;
-    font-weight: 600;
-    border-radius: 5px;
-}
-
-footer ul li a {
-    color: var(--white);
-}
-
-footer ul li a:hover {
-    color: var(--slate-500);
-}
-
-.table {
-    justify-content: center;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-    /* padding: 1rem; */
+    font-size: 2rem;
+    margin-bottom: 20px;
 }
 
 .th {
-    color: var(--green);
+    color: #00ff00;
+}
+
+.input-container {
+    margin-bottom: 20px;
+}
+
+.input-label {
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.table th {
+    background-color: #333;
+    color: #fff;
+}
+
+.table tr.selected {
+    background-color: #00ff00;
+    color: #000;
+}
+
+.payment-method-container,
+.order {
+    margin-top: 20px;
+}
+
+.form-select {
+    width: 100%;
+    padding: 8px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    color: #000;
+    background-color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 2px solid transparent;
+}
+
+.btn:hover {
+    background-color: #f00;
+    color: #fff;
 }
