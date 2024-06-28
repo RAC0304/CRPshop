@@ -38,8 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $username_error_message = "Email sudah digunakan. Silakan gunakan email lain.";
     } else {
       // Email belum terdaftar, lakukan INSERT
-      $sql = "INSERT INTO users (email, username,name, password, role, created_at, updated_at) 
-                    VALUES ('$email', '$username','$name', '$password', 'user', NOW(), NOW())";
+      $sql = "INSERT INTO users (email, username, password, role, created_at, updated_at) 
+      VALUES ('$email', '$username', '$password', 'user', NOW(), NOW())";
+
 
       if ($koneksi->query($sql) === TRUE) {
         // Jika data berhasil dimasukkan, redirect ke halaman login
