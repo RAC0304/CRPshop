@@ -16,6 +16,15 @@ img {
   width: 150px;
 }
 
+.home-icon {
+  display: block;
+  text-align: center;
+  font-size: 32px;
+  color: #03e9f4;
+  margin-bottom: 15px;
+  /* Warna ikon default */
+}
+
 .login-box {
   position: absolute;
   top: 50%;
@@ -38,6 +47,14 @@ img {
 
 .login-box .user-box {
   position: relative;
+}
+
+
+.login-box .user-box .home-icon:hover {
+  color: white;
+  /* Ubah warna ikon saat hover */
+  box-shadow: none;
+  /* Hapus box-shadow saat hover */
 }
 
 .login-box .user-box input {
@@ -82,7 +99,7 @@ img {
   text-transform: uppercase;
   overflow: hidden;
   transition: .5s;
-  margin-top: 40px;
+  margin-top: 10px;
   letter-spacing: 4px
 }
 
@@ -162,6 +179,8 @@ img {
     right: 100%;
   }
 }
+
+
 
 .login-box button span:nth-child(4) {
   bottom: -100%;
