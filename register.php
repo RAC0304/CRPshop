@@ -1,6 +1,6 @@
 <?php
-// Include file connect.php untuk menggunakan koneksi database
-include 'connect.php';
+// Include file kon$koneksiect.php untuk menggunakan koneksi database
+include 'koneksi.php';
 
 // Inisialisasi variabel atau flag untuk menandai kesalahan username
 $username_error = false;
@@ -8,52 +8,52 @@ $username_error_message = "";
 
 // Ambil nilai dari formulir registrasi
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $name = $_POST['name'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+  $email = $_POST['email'];
+  $name = $_POST['name'];
+  $username = $_POST['username'];
+  $password = $_POST['password'];
 
-    // Lindungi dari SQL injection
-    $email = mysqli_real_escape_string($conn, $email);
-    $name = mysqli_real_escape_string($conn, $name);
-    $username = mysqli_real_escape_string($conn, $username);
-    $password = mysqli_real_escape_string($conn, $password);
+  // Lindungi dari SQL injection
+  $email = mysqli_real_escape_string($koneksi, $email);
+  $name = mysqli_real_escape_string($koneksi, $name);
+  $username = mysqli_real_escape_string($koneksi, $username);
+  $password = mysqli_real_escape_string($koneksi, $password);
 
-    // Query untuk memeriksa apakah username sudah ada
-    $check_username_sql = "SELECT * FROM users WHERE username='$username'";
-    $check_username_result = $conn->query($check_username_sql);
+  // Query untuk memeriksa apakah username sudah ada
+  $check_username_sql = "SELECT * FROM users WHERE username='$username'";
+  $check_username_result = $koneksi->query($check_username_sql);
 
-    if ($check_username_result->num_rows > 0) {
-        // Set flag kesalahan username
-        $username_error = true;
-        $username_error_message = "Email sudah digunakan. Silakan gunakan Email lain.";
+  if ($check_username_result->num_rows > 0) {
+    // Set flag kesalahan username
+    $username_error = true;
+    $username_error_message = "Email sudah digunakan. Silakan gunakan Email lain.";
+  } else {
+    // Query untuk memeriksa apakah email sudah ada
+    $check_email_sql = "SELECT * FROM users WHERE email='$email'";
+    $check_email_result = $koneksi->query($check_email_sql);
+
+    if ($check_email_result->num_rows > 0) {
+      // Set flag kesalahan email
+      $username_error = true;
+      $username_error_message = "Email sudah digunakan. Silakan gunakan email lain.";
     } else {
-        // Query untuk memeriksa apakah email sudah ada
-        $check_email_sql = "SELECT * FROM users WHERE email='$email'";
-        $check_email_result = $conn->query($check_email_sql);
+      // Email belum terdaftar, lakukan INSERT
+      $sql = "INSERT INTO users (email, username,name, password, role, created_at, updated_at) 
+                    VALUES ('$email', '$username','$name', '$password', 'user', NOW(), NOW())";
 
-        if ($check_email_result->num_rows > 0) {
-            // Set flag kesalahan email
-            $username_error = true;
-            $username_error_message = "Email sudah digunakan. Silakan gunakan email lain.";
-        } else {
-            // Email belum terdaftar, lakukan INSERT
-            $sql = "INSERT INTO users (email, username, password, role, created_at, updated_at) 
-                    VALUES ('$email', '$username', '$password', 'user', NOW(), NOW())";
-
-            if ($conn->query($sql) === TRUE) {
-                // Jika data berhasil dimasukkan, redirect ke halaman login
-                echo '<script>
+      if ($koneksi->query($sql) === TRUE) {
+        // Jika data berhasil dimasukkan, redirect ke halaman login
+        echo '<script>
                         setTimeout(function() {
                             window.location.href = "login.php";
                         }, 0);
                       </script>';
-            } else {
-                // Jika terjadi kesalahan lain selain duplikat username atau email
-                echo "Error: " . $sql . "<br>" . $conn->error;
-            }
-        }
+      } else {
+        // Jika terjadi kesalahan lain selain duplikat username atau email
+        echo "Error: " . $sql . "<br>" . $koneksi->error;
+      }
     }
+  }
 }
 ?>
 
@@ -123,9 +123,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <button type="submit">
         <span></span><span></span><span></span><span></span>Submit
       </button>
-      <?php if ($username_error && !empty($username_error_message)): ?>
-          <span class="error-message"><?php echo $username_error_message; ?></span>
-        <?php endif; ?>
+      <?php if ($username_error && !empty($username_error_message)) : ?>
+        <span class="error-message"><?php echo $username_error_message; ?></span>
+      <?php endif; ?>
     </form>
 
   </div>
