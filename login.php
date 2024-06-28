@@ -40,9 +40,11 @@
     </form>
 
     <p class="register-text">Belum punya akun? <a href="register.html">Register di sini</a></p>
-    <a href="index.php" class="home-icon">
-      <i class="fas fa-home"></i>
-    </a>
+    <div class="user-box">
+      <a href="index.php" class="home-icon">
+        <i class="fas fa-home"></i>
+      </a>
+    </div>
   </div>
   </div>
 

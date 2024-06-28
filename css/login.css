@@ -38,7 +38,6 @@ img {
 
 .login-box .user-box {
     position: relative;
-    box-shadow: none;
 }
 
 .login-box .user-box input {
@@ -46,7 +45,7 @@ img {
     padding: 10px 0;
     font-size: 16px;
     color: #fff;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     border: none;
     border-bottom: 1px solid #fff;
     outline: none;
@@ -201,7 +200,7 @@ img {
     /* Warna ikon default */
 }
 
-.home-icon:hover {
+.login-box .user-box .home-icon:hover {
     color: white;
     /* Ubah warna ikon saat hover */
     box-shadow: none;
