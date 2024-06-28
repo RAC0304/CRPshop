@@ -4,15 +4,18 @@ include 'connect.php';
 
 // Inisialisasi variabel atau flag untuk menandai kesalahan username
 $username_error = false;
+$username_error_message = "";
 
 // Ambil nilai dari formulir registrasi
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
+    $name = $_POST['name'];
     $username = $_POST['username'];
     $password = $_POST['password'];
 
     // Lindungi dari SQL injection
     $email = mysqli_real_escape_string($conn, $email);
+    $name = mysqli_real_escape_string($conn, $name);
     $username = mysqli_real_escape_string($conn, $username);
     $password = mysqli_real_escape_string($conn, $password);
 
@@ -23,21 +26,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($check_username_result->num_rows > 0) {
         // Set flag kesalahan username
         $username_error = true;
+        $username_error_message = "Email sudah digunakan. Silakan gunakan Email lain.";
     } else {
-        // Username belum ada, lakukan INSERT
-        $sql = "INSERT INTO users (email, username, password, role, created_at, updated_at) 
-                VALUES ('$email', '$username', '$password', 'user', NOW(), NOW())";
+        // Query untuk memeriksa apakah email sudah ada
+        $check_email_sql = "SELECT * FROM users WHERE email='$email'";
+        $check_email_result = $conn->query($check_email_sql);
 
-        if ($conn->query($sql) === TRUE) {
-            // Jika data berhasil dimasukkan, redirect ke halaman login setelah 2 detik
-            echo '<script>
-                    setTimeout(function() {
-                        window.location.href = "login.php";
-                    }, 0);
-                  </script>';
+        if ($check_email_result->num_rows > 0) {
+            // Set flag kesalahan email
+            $username_error = true;
+            $username_error_message = "Email sudah digunakan. Silakan gunakan email lain.";
         } else {
-            // Jika terjadi kesalahan lain selain duplikat username
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            // Email belum terdaftar, lakukan INSERT
+            $sql = "INSERT INTO users (email, username, password, role, created_at, updated_at) 
+                    VALUES ('$email', '$username', '$password', 'user', NOW(), NOW())";
+
+            if ($conn->query($sql) === TRUE) {
+                // Jika data berhasil dimasukkan, redirect ke halaman login
+                echo '<script>
+                        setTimeout(function() {
+                            window.location.href = "login.php";
+                        }, 0);
+                      </script>';
+            } else {
+                // Jika terjadi kesalahan lain selain duplikat username atau email
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
         }
     }
 }
@@ -68,6 +82,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       box-shadow: none;
       /* Hapus box-shadow saat hover */
     }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+      display: block;
+    }
   </style>
 </head>
 
@@ -93,17 +114,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="user-box">
         <input type="text" name="username" id="username" required />
         <label for="username">Username</label>
-        <span id="usernameError" class="error-message"></span>
       </div>
       <div class="user-box">
         <input type="password" name="password" id="password" required />
         <label for="password">Password</label>
         <span id="passwordError" class="error-message"></span>
       </div>
-
       <button type="submit">
         <span></span><span></span><span></span><span></span>Submit
       </button>
+      <?php if ($username_error && !empty($username_error_message)): ?>
+          <span class="error-message"><?php echo $username_error_message; ?></span>
+        <?php endif; ?>
     </form>
 
   </div>
@@ -150,4 +172,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 </html>
-
