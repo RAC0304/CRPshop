@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../koneksi.php';
+include '../koneksi.php'; // Adjust the path if needed
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +24,7 @@ include '../koneksi.php';
 </head>
 
 <body>
-    <header class="header">
+<header class="header">
         <div class="wrap">
             <div class="left-header">
                 <a href="index.php"><img class="logo" src="img/logoputih.png" alt="""></a>
@@ -146,7 +146,7 @@ include '../koneksi.php';
         <div class="wrap">
             <div class="game__grid">
                 <div class="mobile-legends">
-                    <a href="belanja/mobilelegends.php">
+                    <a href="belanja_costumer/mobilelegends.php">
                         <div class="game">
                             <img class="mlbb-img" src="img/20220610_181432.png" alt="" width="250">
                             <div class="product-title">
@@ -157,7 +157,7 @@ include '../koneksi.php';
                 </div>
 
                 <div class="wild-rift">
-                    <a href="belanja/lol.php">
+                    <a href="belanja_costumer/lol.php">
                         <div class="game">
                             <img class="lol-img" src="img/lol-cover.png" alt="" width="250">
                             <div class="product-title">
@@ -168,7 +168,7 @@ include '../koneksi.php';
                 </div>
 
                 <div class="free-fire">
-                    <a href="belanja/ff.php">
+                    <a href="belanja_costumer/ff.php">
                         <div class="game">
                             <img class="ff-img" src="img/ff-cover.jpg" alt="" width="250">
                             <div class="product-title">
@@ -179,7 +179,7 @@ include '../koneksi.php';
                 </div>
 
                 <div class="pubg-m">
-                    <a href="belanja/pubg.php">
+                    <a href="belanja_costumer/pubg.php">
                         <div class="game">
                             <img class="pubgm-img" src="img/pubgm-cover.png" alt="" width="250">
                             <div class="product-title">
@@ -190,7 +190,7 @@ include '../koneksi.php';
                 </div>
 
                 <div class="cod-m">
-                    <a href="belanja/codm.php">
+                    <a href="belanja_costumer/codm.php">
                         <div class="game">
                             <img class="codm-img" src="img/codm-cover.png" alt="" width="250">
                             <div class="product-title">
@@ -201,7 +201,7 @@ include '../koneksi.php';
                 </div>
 
                 <div class="valo">
-                    <a href="belanja/valorant.php">
+                    <a href="belanja_costumer/valorant.php">
                         <div class="game">
                             <img class="valo-img" src="img/valo-cover.png" alt="" width="250">
                             <div class="product-title">
@@ -212,7 +212,7 @@ include '../koneksi.php';
                 </div>
 
                 <div class="genshin-impact">
-                    <a href="belanja/gi.php">
+                    <a href="belanja_costumer/gi.php">
                         <div class="game">
                             <img class="genshin-img" src="img/genshin-cover.png" alt="" width="250">
                             <div class="product-title">

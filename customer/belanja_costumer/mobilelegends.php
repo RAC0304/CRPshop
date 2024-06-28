@@ -1,3 +1,8 @@
+<?php
+session_start();
+include '../../koneksi.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,17 +12,16 @@
   <title>Daftar Harga</title>
   <link rel="stylesheet" href="harga.css" />
 </head>
-
 <body>
-  <?php include 'header.php'; ?>
+  <?php include 'header.php';?>
   <div class="container">
     <h1 class="title__list">
-      LIST HARGA LENGKAP <span class="th">League Of Legends CRPshop</span>
+      LIST HARGA LENGKAP <span class="th">Mobile Legends CRPshop</span>
     </h1>
     <div class="lengkapidata">
       <div class="input-container">
-        <label for="userID" class="input-label">Lengkapi Riot ID</label>
-        <input type="number" class="form-control" id="userID" placeholder="Masukkan Riot ID Anda" />
+        <label for="userID" class="input-label">Lengkapi Data</label>
+        <input type="number" class="form-control" id="userID" placeholder="Masukkan ID" />
       </div>
     </div>
     <div class="server">
@@ -29,38 +33,38 @@
     <table border="1" class="table">
       <thead>
         <tr>
-          <th>Nominal RP </th>
+          <th>Nominal Diamond</th>
           <th>Harga Normal</th>
         </tr>
       </thead>
       <tbody>
         <tr onclick="toggleSelection(this)">
-          <td>625 RP</td>
-          <td>Rp 50.000</td>
+          <td>300 Diamond</td>
+          <td>Rp 33.000</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-          <td>775 RP</td>
-          <td>Rp 86.000</td>
+          <td>625 Diamond</td>
+          <td>Rp 66.000</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-          <td>1525 RP</td>
-          <td>Rp 115.700</td>
+          <td>925 Diamond</td>
+          <td>Rp 99.700</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-          <td>1400 RP</td>
-          <td>Rp 150.500</td>
+          <td>1125 Diamond</td>
+          <td>Rp 115.500</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-          <td>2900 RP</td>
-          <td>Rp 215.500</td>
+          <td>1425 Diamond</td>
+          <td>Rp 148.500</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-          <td>2850 RP</td>
-          <td>Rp 301.000</td>
+          <td>1650 Diamond</td>
+          <td>Rp 165.000</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-          <td>4600 RP</td>
-          <td>Rp 330.000</td>
+          <td>1950 Diamond</td>
+          <td>Rp 198.000</td>
         </tr>
       </tbody>
     </table>
@@ -80,7 +84,7 @@
       </select>
     </div>
     <div class="order">
-      <a href="../checkout.html" class="btn btn-danger" id="orderButton">Order</a>
+      <a href="../checkout.html" class="btn btn-success" id="orderButton">Order</a>
     </div>
   </div>
   <script>
@@ -91,5 +95,4 @@
     }
   </script>
 </body>
-
 </html>

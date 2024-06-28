@@ -1,3 +1,8 @@
+<?php
+session_start();
+include '../../koneksi.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +15,6 @@
 
 <body>
   <?php include 'header.php'; ?>
-
   <div class="container">
     <h1 class="title__list">
       LIST HARGA LENGKAP <span class="th">Genshin Impact CRPshop</span>

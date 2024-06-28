@@ -1,3 +1,8 @@
+<?php
+session_start();
+include '../../koneksi.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,52 +15,57 @@
 
 <body>
   <?php include 'header.php'; ?>
-
   <div class="container">
     <h1 class="title__list">
-      LIST HARGA LENGKAP <span class="th">PUBG MOBILE CRPshop</span>
+      LIST HARGA LENGKAP <span class="th">League Of Legends CRPshop</span>
     </h1>
     <div class="lengkapidata">
       <div class="input-container">
-        <label for="userID" class="input-label">User ID</label>
-        <input type="number" class="form-control" id="userID" placeholder="Masukkan User ID" />
+        <label for="userID" class="input-label">Lengkapi Riot ID</label>
+        <input type="number" class="form-control" id="userID" placeholder="Masukkan Riot ID Anda" />
+      </div>
+    </div>
+    <div class="server">
+      <div class="input-container">
+        <label for="serverID" class="input-label">Server</label>
+        <input type="number" class="form-control" id="serverID" placeholder="1234" />
       </div>
     </div>
     <table border="1" class="table">
       <thead>
         <tr>
-          <th>Nominal UC</th>
+          <th>Nominal RP </th>
           <th>Harga Normal</th>
         </tr>
       </thead>
       <tbody>
         <tr onclick="toggleSelection(this)">
-          <td>60 UC</td>
-          <td>Rp 15.000</td>
+          <td>625 RP</td>
+          <td>Rp 50.000</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-          <td>325 UC</td>
-          <td>Rp 78.000</td>
+          <td>775 RP</td>
+          <td>Rp 86.000</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-          <td>660 UC</td>
-          <td>Rp 157.000</td>
+          <td>1525 RP</td>
+          <td>Rp 115.700</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-          <td>1800 UC</td>
-          <td>Rp 392.700</td>
+          <td>1400 RP</td>
+          <td>Rp 150.500</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-          <td>3850 UC</td>
-          <td>Rp 785.500</td>
+          <td>2900 RP</td>
+          <td>Rp 215.500</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-          <td>8100 UC</td>
-          <td>Rp 1.570.000</td>
+          <td>2850 RP</td>
+          <td>Rp 301.000</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-          <td>10000 UC</td>
-          <td>Rp 2.000.000</td>
+          <td>4600 RP</td>
+          <td>Rp 330.000</td>
         </tr>
       </tbody>
     </table>
@@ -75,7 +85,7 @@
       </select>
     </div>
     <div class="order">
-      <a href="../checkout.html" class="btn btn-success" id="orderButton">Order</a>
+      <a href="../checkout.html" class="btn btn-danger" id="orderButton">Order</a>
     </div>
   </div>
   <script>
