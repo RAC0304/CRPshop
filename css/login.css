@@ -38,6 +38,7 @@ img {
 
 .login-box .user-box {
     position: relative;
+    box-shadow: none;
 }
 
 .login-box .user-box input {
@@ -82,7 +83,7 @@ img {
     text-transform: uppercase;
     overflow: hidden;
     transition: .5s;
-    margin-top: 40px;
+    margin-top: 10px;
     letter-spacing: 4px
 }
 
@@ -182,4 +183,27 @@ img {
     100% {
         bottom: 100%;
     }
+}
+
+.register-text {
+    color: whitesmoke;
+}
+
+.register-text a {
+    color: #03e9f4;
+}
+
+.home-icon {
+    display: block;
+    text-align: center;
+    font-size: 32px;
+    color: #03e9f4;
+    /* Warna ikon default */
+}
+
+.home-icon:hover {
+    color: white;
+    /* Ubah warna ikon saat hover */
+    box-shadow: none;
+    /* Hapus box-shadow saat hover */
 }
