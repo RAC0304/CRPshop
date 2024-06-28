@@ -1,3 +1,48 @@
+<?php
+// Include file connect.php untuk menggunakan koneksi database
+include 'connect.php';
+
+// Inisialisasi variabel atau flag untuk menandai kesalahan username
+$username_error = false;
+
+// Ambil nilai dari formulir registrasi
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    // Lindungi dari SQL injection
+    $email = mysqli_real_escape_string($conn, $email);
+    $username = mysqli_real_escape_string($conn, $username);
+    $password = mysqli_real_escape_string($conn, $password);
+
+    // Query untuk memeriksa apakah username sudah ada
+    $check_username_sql = "SELECT * FROM users WHERE username='$username'";
+    $check_username_result = $conn->query($check_username_sql);
+
+    if ($check_username_result->num_rows > 0) {
+        // Set flag kesalahan username
+        $username_error = true;
+    } else {
+        // Username belum ada, lakukan INSERT
+        $sql = "INSERT INTO users (email, username, password, role, created_at, updated_at) 
+                VALUES ('$email', '$username', '$password', 'user', NOW(), NOW())";
+
+        if ($conn->query($sql) === TRUE) {
+            // Jika data berhasil dimasukkan, redirect ke halaman login setelah 2 detik
+            echo '<script>
+                    setTimeout(function() {
+                        window.location.href = "login.php";
+                    }, 0);
+                  </script>';
+        } else {
+            // Jika terjadi kesalahan lain selain duplikat username
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -34,7 +79,7 @@
       </a>
     </div>
     <h2>Register Dulu Bro</h2>
-    <form id="registrationForm" action="index.php" method="post">
+    <form id="registrationForm" action="register.php" method="post">
       <div class="user-box">
         <input type="email" name="email" id="email" required />
         <label for="email">Email</label>
@@ -105,3 +150,4 @@
 </body>
 
 </html>
+
