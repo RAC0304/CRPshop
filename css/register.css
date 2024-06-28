@@ -16,14 +16,7 @@ img {
   width: 150px;
 }
 
-.home-icon {
-  display: block;
-  text-align: center;
-  font-size: 32px;
-  color: #03e9f4;
-  margin-bottom: 15px;
-  /* Warna ikon default */
-}
+
 
 .login-box {
   position: absolute;
