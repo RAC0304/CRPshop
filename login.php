@@ -35,7 +35,7 @@
       </a>
     </div>
     <h2>Login Dulu Bre</h2>
-    <form>
+    <form method="post" action="proses/proses-login.php">
       <div class="user-box">
         <input type="text" name="" required="">
         <label>Username</label>
