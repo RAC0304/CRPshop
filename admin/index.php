@@ -9,6 +9,7 @@
   <meta name="author" content="" />
 
   <?php
+  include "../koneksi.php";
   $current_page = basename(__FILE__);
   $page_title = "Dashboard - CRPShop";
   ?>
@@ -55,15 +56,26 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
+                      <?php
+                      $sql = "SELECT COUNT(*) as total_user from users where role='user'";
+                      $result = $koneksi->query($sql);
+                      if ($result->num_rows > 0) {
+                        // Mendapatkan total pengguna dari hasil query
+                        $row = $result->fetch_assoc();
+                        $total_user = $row['total_user'];
+                      } else {
+                        $total_user = 0;
+                      }
+                      ?>
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        Earnings (Monthly)
+                        Total User
                       </div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">
-                        $40,000
+                        <?php echo $total_user; ?>
                       </div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                      <i class="fas fa-user fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -76,15 +88,28 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
+                      <?php
+                      $sql = "SELECT COUNT(*) as total_game from games";
+                      $result = $koneksi->query($sql);
+                      if ($result->num_rows > 0) {
+                        // Mendapatkan total game dari hasil query
+                        $row = $result->fetch_assoc();
+                        $total_games = $row['total_game'];
+                      } else {
+                        $total_games = 0;
+                      }
+
+                      $koneksi->close();  // Menutup koneksi database
+                      ?>
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                        Earnings (Annual)
+                        Total Games
                       </div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">
-                        $215,000
+                        <?php echo $total_games; ?>
                       </div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                      <i class="fas fa-gamepad fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -244,27 +269,8 @@
   </a>
 
   <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          Select "Logout" below if you are ready to end your current session.
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">
-            Cancel
-          </button>
-          <a class="btn btn-primary" href="../logout.php">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <?php include './component/logout-modal.php'; ?>
+
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>

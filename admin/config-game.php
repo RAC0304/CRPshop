@@ -22,6 +22,8 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -53,7 +55,64 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Daftar Game dan Mata Uang</h1>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Daftar Pengguna</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <?php
+                                include '../koneksi.php';
+                                $sql = "SELECT games.names AS game_name,games.id, games.image, games.created_at, games.updated_at, currencies.name AS currency_name, currencies.symbol FROM games INNER JOIN currencies ON games.id = currencies.game_id"; // Tambahkan koma setelah games.updated_at
+
+                                $result = $koneksi->query($sql);
+                                ?>
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Gambar</th>
+                                            <th>Name</th>
+                                            <th>Mata Uang</th>
+                                            <th>Di Buat</th>
+                                            <th>Diubah</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Gambar</th>
+                                            <th>Name</th>
+                                            <th>Di Buat</th>
+                                            <th>Diubah</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <?php
+                                        if ($result->num_rows > 0) {
+                                            // Output data setiap baris
+                                            while ($row = $result->fetch_assoc()) {
+                                                echo "<tr>";
+                                                echo "<td><img src='../image/" . $row['image'] . "' width='100' height='100'></td>";
+                                                echo "<td>" . $row['game_name'] . "</td>";
+                                                echo "<td>" . $row['currency_name'] . " / " . $row['symbol'] . "</td>";
+                                                echo "<td>" . $row['created_at'] . "</td>";
+                                                echo "<td>" . $row['updated_at'] . "</td>";
+                                                echo '<td><a href="edit.php?id=' . $row['id'] . '" class="btn btn-warning btn-circle"><i class="fas fa-pen"></i></a> | <a href="delete.php?id=' . $row['id'] . '"class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>';
+                                                echo "</tr>";
+                                            }
+                                        } else {
+                                            echo "<tr><td colspan='4'>Tidak ada data User</td></tr>";
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -83,23 +142,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php include './component/logout-modal.php'; ?>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -110,6 +153,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
 
 </body>
 
