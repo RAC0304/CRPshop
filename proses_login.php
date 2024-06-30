@@ -27,7 +27,7 @@ if ($cek > 0) {
         $_SESSION['username'] = $username;
         $_SESSION['role'] = "admin";
         // alihkan ke halaman dashboard admin
-        header("location:admin/index_admin.php");
+        header("location:admin/index.php");
 
         // cek jika user login sebagai user
     } else if ($data['role'] == "user") {

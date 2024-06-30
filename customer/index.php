@@ -24,7 +24,7 @@ include '../koneksi.php'; // Adjust the path if needed
 </head>
 
 <body>
-<header class="header">
+    <header class="header">
         <div class="wrap">
             <div class="left-header">
                 <a href="index.php"><img class="logo" src="img/logoputih.png" alt="""></a>
@@ -43,7 +43,7 @@ include '../koneksi.php'; // Adjust the path if needed
                 </li>
 
                 <li class="login-btn">
-                <?php
+                    <?php
                     // Periksa apakah pengguna sudah login
                     if (isset($_SESSION['username'])) {
                         $username = $_SESSION['username'];
@@ -66,7 +66,7 @@ include '../koneksi.php'; // Adjust the path if needed
                     ?>
                     </a>
                 </li>
-                
+
                 <li class="login-btn">
                     <a href="../login.php" class="btn">Logout
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
