@@ -13,7 +13,7 @@
 
     <?php
     $current_page = basename(__FILE__);
-    $page_title = "Manajemen Paket - CRPShop";
+    $page_title = "Manajemen Pengguna - CRPShop";
     ?>
     <title><?php echo $page_title; ?></title>
 
@@ -23,6 +23,9 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 
 </head>
 
@@ -53,8 +56,13 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Manajemen Paket Pembelian</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Manajemen Pengguna</h1>
 
+                    <div class="row">
+                        <form action="proses_tambah.php" method="get">
+
+                        </form>
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -94,6 +102,12 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
 
 </body>
 
