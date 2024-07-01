@@ -75,6 +75,7 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <th>No</th>
                                             <th>Gambar</th>
                                             <th>Name</th>
                                             <th>Mata Uang</th>
@@ -85,8 +86,10 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            <th>No</th>
                                             <th>Gambar</th>
                                             <th>Name</th>
+                                            <th>Mata Uang</th>
                                             <th>Di Buat</th>
                                             <th>Diubah</th>
                                             <th>Action</th>
@@ -94,20 +97,23 @@
                                     </tfoot>
                                     <tbody>
                                         <?php
+                                        $no = 0;
                                         if ($result->num_rows > 0) {
-                                            // Output data setiap baris
                                             while ($row = $result->fetch_assoc()) {
+                                                $no++;
                                                 echo "<tr>";
+                                                echo "<td>" . $no . "</td>";
                                                 echo "<td><img src='../image/" . $row['image'] . "' width='100' height='100'></td>";
                                                 echo "<td>" . $row['game_name'] . "</td>";
                                                 echo "<td>" . $row['currency_name'] . " / " . $row['symbol'] . "</td>";
                                                 echo "<td>" . $row['created_at'] . "</td>";
                                                 echo "<td>" . $row['updated_at'] . "</td>";
-                                                echo '<td><a href="edit.php?id=' . $row['id'] . '" class="btn btn-warning btn-circle"><i class="fas fa-pen"></i></a> | <a href="delete.php?id=' . $row['id'] . '"class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>';
+                                                echo '<td><a href="edit.php?id=' . $row['id'] . '" class="btn btn-warning btn-circle"><i class="fas fa-pen"></i></a> | 
+                                                      <a href="#" class="btn btn-danger btn-circle" data-toggle="modal" data-target="#hapusModal" data-id="' . $row['id'] . '"><i class="fas fa-trash"></i></a></td>';
                                                 echo "</tr>";
                                             }
                                         } else {
-                                            echo "<tr><td colspan='4'>Tidak ada data User</td></tr>";
+                                            echo "<tr><td colspan='7'>Tidak ada data Game</td></tr>";
                                         }
                                         ?>
                                     </tbody>
@@ -121,6 +127,27 @@
 
             </div>
             <!-- End of Main Content -->
+
+            <!-- Modal Hapus -->
+            <div class="modal fade" id="hapusModal" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="hapusModalLabel">Konfirmasi Penghapusan</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Apakah Anda yakin ingin menghapus game ini?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <a href="" id="confirmDelete" class="btn btn-danger">Hapus</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -162,6 +189,14 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
+    <script>
+        $('#hapusModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var modal = $(this);
+            modal.find('#confirmDelete').attr('href', './component/hapus-game.php?id=' + id);
+        });
+    </script>
 
 </body>
 
