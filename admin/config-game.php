@@ -62,7 +62,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Daftar Pengguna</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Daftar Game</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -108,7 +108,7 @@
                                                 echo "<td>" . $row['currency_name'] . " / " . $row['symbol'] . "</td>";
                                                 echo "<td>" . $row['created_at'] . "</td>";
                                                 echo "<td>" . $row['updated_at'] . "</td>";
-                                                echo '<td><a href="edit.php?id=' . $row['id'] . '" class="btn btn-warning btn-circle"><i class="fas fa-pen"></i></a> | 
+                                                echo '<td><a href="edit-game.php?id=' . $row['id'] . '" class="btn btn-warning btn-circle"><i class="fas fa-pen"></i></a> | 
                                                       <a href="#" class="btn btn-danger btn-circle" data-toggle="modal" data-target="#hapusModal" data-id="' . $row['id'] . '"><i class="fas fa-trash"></i></a></td>';
                                                 echo "</tr>";
                                             }
