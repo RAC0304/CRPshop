@@ -108,7 +108,7 @@ header {
 
 .btn {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 25px 5px;
   font-size: 1.2rem;
   color: #000;
   background-color: #fff;
@@ -121,3 +121,19 @@ header {
   background-color: green;
   color: #fff;
 }
+
+.btn-check-id {
+  display: inline-block;
+  padding: 10px 5px; /* Sesuaikan dengan ukuran yang diinginkan */
+  background-color: #007bff; /* Warna latar belakang */
+  color: #fff; /* Warna teks */
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  margin-top: 5px; /* Atur margin sesuai kebutuhan */
+}
+
+.btn-check-id:hover {
+  background-color: #001429; /* Warna latar belakang saat hover */
+}
+
