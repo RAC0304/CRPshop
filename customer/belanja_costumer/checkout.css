@@ -16,6 +16,8 @@ body {
     padding: 20px;
 }
 
+
+
 header {
     background-color: #1a1a3d;
     padding: 10px 0;
@@ -99,6 +101,28 @@ header {
 .order-button {
     text-align: center;
     margin-top: 30px;
+}
+
+body {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.btn-nama {
+    display: inline-block;
+    padding: 0.3rem 0.375rem;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #000;
+    background-color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.btn-nama:hover {
+    background-color: green;
+    color: #fff;
 }
 
 .order-button .btn {

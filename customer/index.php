@@ -47,7 +47,7 @@ include '../koneksi.php'; // Adjust the path if needed
                     // Periksa apakah pengguna sudah login
                     if (isset($_SESSION['username'])) {
                         $username = $_SESSION['username'];
-                        echo '<li class="login-btn">';
+                        echo '<li class="judul">';
                         echo '<a href="#" class="btn">';
                         echo "$username"; // Tampilkan nama pengguna atau teks sesuai kebutuhan
                         echo '</a>';

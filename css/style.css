@@ -23,6 +23,7 @@
 body {
    background-color: var(--black);
    color: var(--white);
+   font-family: 'Times New Roman', Times, serif;
 }
 
 .header {

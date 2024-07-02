@@ -78,6 +78,11 @@ body {
    border-radius: 5px;
 }
 
+.judul {
+   background-image: linear-gradient(to right, var(--grape));
+   border-radius: 5px;
+}
+
 .logo-btn {
    background-image: linear-gradient(to right, var(--grape), var(--red));
    border-radius: 5px;
@@ -545,6 +550,11 @@ ul li.active a {
 
    .login-btn {
       background-image: linear-gradient(to right, var(--grape), var(--pink));
+      border-radius: 5px;
+   }
+
+   .judul {
+      background-image: linear-gradient(to right, var(--grape));
       border-radius: 5px;
    }
 
