@@ -65,6 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
   <title>Register</title>
+  <link rel="icon" type="image/x-icon" href="./img/logo.png">
   <link href="css/register.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
