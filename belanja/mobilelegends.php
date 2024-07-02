@@ -80,7 +80,7 @@
       </select>
     </div>
     <div class="order">
-      <a href="../checkout.html" class="btn btn-success" id="orderButton">Order</a>
+      <a href="../checkout.php" class="btn btn-success" id="orderButton">Order</a>
     </div>
   </div>
   <script>

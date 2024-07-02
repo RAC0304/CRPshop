@@ -75,7 +75,7 @@
       </select>
     </div>
     <div class="order">
-      <a href="../checkout.html" class="btn btn-danger" id="orderButton">Order</a>
+      <a href="../checkout.html"class="btn btn-danger" id="orderButton">Order</a>
     </div>
   </div>
   <script>

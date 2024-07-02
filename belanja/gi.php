@@ -22,10 +22,17 @@
       </div>
     </div>
     <div class="server">
-      <div class="input-container">
-        <label for="serverID" class="input-label">Server</label>
-        <input type="number" class="form-control" id="serverID" placeholder="1234" />
-      </div>
+    <div class="input-container">
+      <select class="form-select" id="serverID" name="serverID" required>
+        <option value="">Pilih Server</option>
+        <option value="america">America</option>
+        <option value="europe">Europe</option>
+        <option value="asia">Asia</option>
+        <option value="TK">Turkey (TK)</option>
+        <option value="HK">Hong Kong (HK)</option>
+        <option value="MO">Macao (MO)</option>
+      </select>
+    </div>
     </div>
     <table border="1" class="table">
       <thead>
