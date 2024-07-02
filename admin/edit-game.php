@@ -13,7 +13,7 @@
 
     <?php
     $current_page = basename(__FILE__);
-    $page_title = "Manajemen Pengguna - CRPShop";
+    $page_title = "Edit Game - CRPShop";
     ?>
     <title><?php echo $page_title; ?></title>
 
