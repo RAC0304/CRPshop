@@ -38,33 +38,45 @@
         </tr>
       </thead>
       <tbody>
-        <tr onclick="toggleSelection(this)">
-          <td>300 VP</td>
-          <td>Rp 43.000</td>
+        <tr onclick="toggleSelection(this, 250, 36000)">
+          <td>250 VP</td>
+          <td>Rp 36.000</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-          <td>625 VP</td>
-          <td>Rp 66.000</td>
+          <td>500 VP</td>
+          <td>Rp 72.000</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-          <td>925 VP</td>
-          <td>Rp 99.700</td>
+          <td>750 VP</td>
+          <td>Rp 108.000</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-          <td>1125 VP</td>
-          <td>Rp 115.500</td>
+          <td>850 VP</td>
+          <td>Rp 122.000</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-          <td>1425 VP</td>
-          <td>Rp 148.500</td>
+          <td>1000 VP</td>
+          <td>Rp 144.000</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-          <td>1650 VP</td>
-          <td>Rp 165.000</td>
+          <td>1200 VP</td>
+          <td>Rp 172.000</td>
         </tr>
         <tr onclick="toggleSelection(this)">
-          <td>1950 VP</td>
-          <td>Rp 198.000</td>
+          <td>1500 VP</td>
+          <td>Rp 216.000</td>
+        </tr>
+        <tr onclick="toggleSelection(this)">
+          <td>1750 VP</td>
+          <td>Rp 231.000</td>
+        </tr>
+        <tr onclick="toggleSelection(this)">
+          <td>2000 VP</td>
+          <td>Rp 264.000</td>
+        </tr>
+        <tr onclick="toggleSelection(this)">
+          <td>2250 VP</td>
+          <td>Rp 297.000</td>
         </tr>
       </tbody>
     </table>
@@ -84,7 +96,7 @@
       </select>
     </div>
     <div class="order">
-      <a href="../checkout.html" class="btn btn-success" id="orderButton">Order</a>
+      <a href="../login.php" class="btn btn-success" id="orderButton">Order</a>
     </div>
   </div>
   <script>

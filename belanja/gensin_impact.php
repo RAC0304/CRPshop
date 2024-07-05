@@ -42,35 +42,43 @@
         </tr>
       </thead>
       <tbody>
-        <tr onclick="toggleSelection(this)">
-          <td>60 Genesis Crystals</td>
-          <td>Rp 16.000</td>
-        </tr>
-        <tr onclick="toggleSelection(this)">
-          <td>Blessing of Welkin Moon</td>
-          <td>Rp 72.000</td>
-        </tr>
-        <tr onclick="toggleSelection(this)">
-          <td>300+30 Genesis Crystals</td>
-          <td>Rp 79.000</td>
-        </tr>
-        <tr onclick="toggleSelection(this)">
-          <td>980+110 Genesis Crystals</td>
-          <td>Rp 249.700</td>
-        </tr>
-        <tr onclick="toggleSelection(this)">
-          <td>1980+260 Genesis Crystals</td>
-          <td>Rp 479.000</td>
-        </tr>
-        <tr onclick="toggleSelection(this)">
-          <td>3280+600 Genesis Crystals</td>
-          <td>Rp 799.500</td>
-        </tr>
-        <tr onclick="toggleSelection(this)">
-          <td>6480+1600 Genesis Crystals</td>
-          <td>Rp 1.599.000</td>
-        </tr>
-      </tbody>
+          <tr onclick="toggleSelection(this)">
+            <td>60 Genesis Crystals</td>
+            <td>Rp 16.000</td>
+          </tr>
+          <tr onclick="toggleSelection(this)">
+            <td>300 Genesis Crystals</td>
+            <td>Rp 63.000</td>
+          </tr>
+          <tr onclick="toggleSelection(this)">
+            <td>980 Genesis Crystals</td>
+            <td>Rp 198.000</td>
+          </tr>
+          <tr onclick="toggleSelection(this)">
+            <td>1980 Genesis Crystals</td>
+            <td>Rp 398.000</td>
+          </tr>
+          <tr onclick="toggleSelection(this)">
+            <td>3280 Genesis Crystals</td>
+            <td>Rp 648.000</td>
+          </tr>
+          <tr onclick="toggleSelection(this)">
+            <td>6480 Genesis Crystals</td>
+            <td>Rp 1.288.000</td>
+          </tr>
+          <tr onclick="toggleSelection(this)">
+            <td>8080 Genesis Crystals</td>
+            <td>Rp 1.599.000</td>
+          </tr>
+          <tr onclick="toggleSelection(this)">
+            <td>10880 Genesis Crystals</td>
+            <td>Rp 1.999.000</td>
+          </tr>
+          <tr onclick="toggleSelection(this)">
+            <td>12880 Genesis Crystals</td>
+            <td>Rp 2.399.000</td>
+          </tr>
+        </tbody>
     </table>
     <div class="payment-method-container">
       <label for="paymentMethod" class="input-label">Pilih Metode Pembayaran</label>
@@ -88,7 +96,7 @@
       </select>
     </div>
     <div class="order">
-      <a href="../checkout.html" class="btn btn-success" id="orderButton">Order</a>
+      <a href="../login.php" class="btn btn-success" id="orderButton">Order</a>
     </div>
   </div>
   <script>

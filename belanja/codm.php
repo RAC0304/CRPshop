@@ -24,38 +24,50 @@
     <table border="1" class="table">
       <thead>
         <tr>
-          <th>Nominal CP </th>
+          <th>Nominal CP</th>
           <th>Harga Normal</th>
         </tr>
       </thead>
       <tbody>
-        <tr onclick="toggleSelection(this)">
+        <tr onclick="selectCP(this)">
           <td>321 CP</td>
           <td>Rp 45.000</td>
         </tr>
-        <tr onclick="toggleSelection(this)">
+        <tr onclick="selectCP(this)">
           <td>645 CP</td>
           <td>Rp 90.000</td>
         </tr>
-        <tr onclick="toggleSelection(this)">
+        <tr onclick="selectCP(this)">
           <td>800 CP</td>
           <td>Rp 108.000</td>
         </tr>
-        <tr onclick="toggleSelection(this)">
+        <tr onclick="selectCP(this)">
           <td>1373 CP</td>
           <td>Rp 180.700</td>
         </tr>
-        <tr onclick="toggleSelection(this)">
+        <tr onclick="selectCP(this)">
           <td>1675 CP</td>
           <td>Rp 272.000</td>
         </tr>
-        <tr onclick="toggleSelection(this)">
+        <tr onclick="selectCP(this)">
           <td>2060 CP</td>
           <td>Rp 342.000</td>
         </tr>
-        <tr onclick="toggleSelection(this)">
+        <tr onclick="selectCP(this)">
           <td>3565 CP</td>
           <td>Rp 450.000</td>
+        </tr>
+        <tr onclick="selectCP(this)">
+          <td>4630 CP</td>
+          <td>Rp 570.000</td>
+        </tr>
+        <tr onclick="selectCP(this)">
+          <td>5515 CP</td>
+          <td>Rp 680.000</td>
+        </tr>
+        <tr onclick="selectCP(this)">
+          <td>6480 CP</td>
+          <td>Rp 800.000</td>
         </tr>
       </tbody>
     </table>
@@ -75,14 +87,17 @@
       </select>
     </div>
     <div class="order">
-      <a href="../checkout.html"class="btn btn-danger" id="orderButton">Order</a>
+      <a href="../login.php" class="btn btn-danger" id="orderButton">Order</a>
     </div>
   </div>
   <script>
-    function toggleSelection(row) {
+    function selectCP(row) {
       const rows = document.querySelectorAll(".table tbody tr");
       rows.forEach((r) => r.classList.remove("selected"));
-      row.classList.toggle("selected");
+      row.classList.add("selected");
+      const cp = row.cells[0].innerText;
+      const price = row.cells[1].innerText;
+      console.log(`Selected: ${cp} - ${price}`);
     }
   </script>
 </body>

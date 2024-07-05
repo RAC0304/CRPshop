@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     CURLOPT_CUSTOMREQUEST => "GET",
     CURLOPT_HTTPHEADER => [
       "x-rapidapi-host: id-game-checker.p.rapidapi.com",
-      "x-rapidapi-key: 3201712659mshf61af0c3bea89e1p14accajsn0309ee9d583e" // Ganti dengan API key Anda
+      "x-rapidapi-key: c3b0182d60msh960be433188e44cp126403jsn736e499fa6cc" // Ganti dengan API key Anda
     ],
   ]);
 
@@ -203,6 +203,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
   <script>
     $(document).ready(function() {
+      var isPlayerIDValid = false;
+
       $("#check-id-button").click(function() {
         var playerID = $("#playerID").val();
         var serverID = $("#serverID").val();
@@ -212,20 +214,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           type: "GET",
           headers: {
             "x-rapidapi-host": "id-game-checker.p.rapidapi.com",
-            "x-rapidapi-key": "3201712659mshf61af0c3bea89e1p14accajsn0309ee9d583e" // Ganti dengan API key Anda
+            "x-rapidapi-key": "c3b0182d60msh960be433188e44cp126403jsn736e499fa6cc" // Ganti dengan API key Anda
           },
           success: function(response) {
             if (response.success && response.data.username) {
               $("#username").text(response.data.username);
               $("#username-display").show();
+              isPlayerIDValid = true;
+              alert("Player ID valid.");
             } else {
               alert("Player ID tidak valid.");
+              isPlayerIDValid = false;
             }
           },
-          error: function(err) {
-            alert("Error: " + JSON.stringify(err));
+          error: function() {
+            alert("Terjadi kesalahan saat memeriksa Player ID.");
+            isPlayerIDValid = false;
           }
         });
+      });
+
+      $("#orderForm").submit(function(event) {
+        if (!isPlayerIDValid) {
+          alert("Player ID tidak valid. Silakan periksa kembali Player ID Anda.");
+          event.preventDefault();
+        }
       });
     });
 

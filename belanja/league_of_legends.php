@@ -62,6 +62,18 @@
           <td>4600 RP</td>
           <td>Rp 330.000</td>
         </tr>
+        <tr onclick="toggleSelection(this)">
+          <td>5000 RP</td>
+          <td>Rp 435.000</td>
+        </tr>
+        <tr onclick="toggleSelection(this)">
+          <td>6450 RP</td>
+          <td>Rp 530.000</td>
+        </tr>
+        <tr onclick="toggleSelection(this)">
+          <td>8250 RP</td>
+          <td>Rp 615.000</td>
+        </tr>
       </tbody>
     </table>
     <div class="payment-method-container">
@@ -80,7 +92,7 @@
       </select>
     </div>
     <div class="order">
-      <a href="../checkout.html" class="btn btn-danger" id="orderButton">Order</a>
+      <a href="../login.php" class="btn btn-danger" id="orderButton">Order</a>
     </div>
   </div>
   <script>

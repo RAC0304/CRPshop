@@ -56,7 +56,7 @@
         </tr>
         <tr onclick="toggleSelection(this)">
           <td>1650 Diamond</td>
-          <td>Rp 165.000</td>
+          <td>Rp 165.500</td>
         </tr>
         <tr onclick="toggleSelection(this)">
           <td>1950 Diamond</td>
@@ -80,7 +80,7 @@
       </select>
     </div>
     <div class="order">
-      <a href="../checkout.php" class="btn btn-success" id="orderButton">Order</a>
+      <a href="../login.php" class="btn btn-success" id="orderButton">Order</a>
     </div>
   </div>
   <script>

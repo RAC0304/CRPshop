@@ -29,35 +29,46 @@
         </tr>
       </thead>
       <tbody>
-        <tr onclick="toggleSelection(this)">
-          <td>60 UC</td>
-          <td>Rp 15.000</td>
-        </tr>
-        <tr onclick="toggleSelection(this)">
-          <td>325 UC</td>
-          <td>Rp 78.000</td>
-        </tr>
-        <tr onclick="toggleSelection(this)">
-          <td>660 UC</td>
-          <td>Rp 157.000</td>
-        </tr>
-        <tr onclick="toggleSelection(this)">
-          <td>1800 UC</td>
-          <td>Rp 392.700</td>
-        </tr>
-        <tr onclick="toggleSelection(this)">
-          <td>3850 UC</td>
-          <td>Rp 785.500</td>
-        </tr>
-        <tr onclick="toggleSelection(this)">
-          <td>8100 UC</td>
-          <td>Rp 1.570.000</td>
-        </tr>
-        <tr onclick="toggleSelection(this)">
-          <td>10000 UC</td>
-          <td>Rp 2.000.000</td>
-        </tr>
-      </tbody>
+          <tr onclick="toggleSelection(this, 25, 6000)">
+            <td>25 UC</td>
+            <td>Rp 6.000</td>
+          </tr>
+          <tr onclick="toggleSelection(this, 50, 10000)">
+            <td>50 UC</td>
+            <td>Rp 10.000</td>
+          </tr>
+          <tr onclick="toggleSelection(this, 100, 20000)">
+            <td>100 UC</td>
+            <td>Rp 20.000</td>
+          </tr>
+          <tr onclick="toggleSelection(this, 300, 56000)">
+            <td>300 UC</td>
+            <td>Rp 56.000</td>
+          </tr>
+          <tr onclick="toggleSelection(this, 600, 112000)">
+            <td>600 UC</td>
+            <td>Rp 112.000</td>
+          </tr>
+          <tr onclick="toggleSelection(this, 1200, 224000)">
+            <td>1200 UC</td>
+            <td>Rp 224.000</td>
+          </tr>
+          <tr onclick="toggleSelection(this, 1800, 336000)">
+            <td>1800 UC</td>
+            <td>Rp 336.000</td>
+          </tr>
+          <tr onclick="toggleSelection(this, 2400, 448000)">
+            <td>2400 UC</td>
+            <td>Rp 448.000</td>
+          </tr>
+          <tr onclick="toggleSelection(this, 4000, 720000)">
+            <td>4000 UC</td>
+            <td>Rp 720.000</td>
+          </tr>
+          <tr onclick="toggleSelection(this, 6000, 1080000)">
+            <td>6000 UC</td>
+            <td>Rp 1.080.000</td>
+          </tr>
     </table>
     <div class="payment-method-container">
       <label for="paymentMethod" class="input-label">Pilih Metode Pembayaran</label>
@@ -75,7 +86,7 @@
       </select>
     </div>
     <div class="order">
-      <a href="../checkout.html" class="btn btn-success" id="orderButton">Order</a>
+      <a href="../login.php" class="btn btn-success" id="orderButton">Order</a>
     </div>
   </div>
   <script>

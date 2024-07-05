@@ -146,7 +146,7 @@ include '../koneksi.php'; // Adjust the path if needed
         <div class="wrap">
             <div class="game__grid">
                 <div class="mobile-legends">
-                    <a href="belanja_costumer/mobilelegends.php">
+                    <a href="belanja_costumer/mobile_legends.php">
                         <div class="game">
                             <img class="mlbb-img" src="img/20220610_181432.png" alt="" width="250">
                             <div class="product-title">
@@ -156,23 +156,23 @@ include '../koneksi.php'; // Adjust the path if needed
                     </a>
                 </div>
 
-                <div class="wild-rift">
-                    <a href="belanja_costumer/lol.php">
-                        <div class="game">
-                            <img class="lol-img" src="img/lol-cover.png" alt="" width="250">
-                            <div class="product-title">
-                                <p>League of Legends</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
                 <div class="free-fire">
-                    <a href="belanja_costumer/ff.php">
+                    <a href="belanja_costumer/free_fire.php">
                         <div class="game">
                             <img class="ff-img" src="img/ff-cover.jpg" alt="" width="250">
                             <div class="product-title">
                                 <p>Free Fire</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="wild-rift">
+                    <a href="belanja_costumer/league_of_legends.php">
+                        <div class="game">
+                            <img class="lol-img" src="img/lol-cover.png" alt="" width="250">
+                            <div class="product-title">
+                                <p>League of Legends</p>
                             </div>
                         </div>
                     </a>
@@ -212,7 +212,7 @@ include '../koneksi.php'; // Adjust the path if needed
                 </div>
 
                 <div class="genshin-impact">
-                    <a href="belanja_costumer/gi.php">
+                    <a href="belanja_costumer/genshin_impact.php">
                         <div class="game">
                             <img class="genshin-img" src="img/genshin-cover.png" alt="" width="250">
                             <div class="product-title">

@@ -116,7 +116,7 @@
         <div class="wrap">
             <div class="game__grid">
                 <div class="mobile-legends">
-                    <a href="belanja/mobilelegends.php">
+                    <a href="belanja/mobile_legends.php">
                         <div class="game">
                             <img class="mlbb-img" src="img/20220610_181432.png" alt="" width="250">
                             <div class="product-title">
@@ -126,23 +126,24 @@
                     </a>
                 </div>
 
-                <div class="wild-rift">
-                    <a href="belanja/lol.php">
-                        <div class="game">
-                            <img class="lol-img" src="img/lol-cover.png" alt="" width="250">
-                            <div class="product-title">
-                                <p>League of Legends</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
+                
                 <div class="free-fire">
-                    <a href="belanja/ff.php">
+                    <a href="belanja/free_fire.php">
                         <div class="game">
                             <img class="ff-img" src="img/ff-cover.jpg" alt="" width="250">
                             <div class="product-title">
                                 <p>Free Fire</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="wild-rift">
+                    <a href="belanja/league_of_legends.php">
+                        <div class="game">
+                            <img class="lol-img" src="img/lol-cover.png" alt="" width="250">
+                            <div class="product-title">
+                                <p>League of Legends</p>
                             </div>
                         </div>
                     </a>
@@ -182,7 +183,7 @@
                 </div>
 
                 <div class="genshin-impact">
-                    <a href="belanja/gi.php">
+                    <a href="belanja/gensin_impact.php">
                         <div class="game">
                             <img class="genshin-img" src="img/genshin-cover.png" alt="" width="250">
                             <div class="product-title">

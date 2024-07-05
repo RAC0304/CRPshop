@@ -29,33 +29,45 @@
         </tr>
       </thead>
       <tbody>
-        <tr onclick="toggleSelection(this)">
-          <td>140 Diamonds</td>
-          <td>Rp 18.000</td>
+        <tr onclick="selectDiamond(this)">
+          <td>50 Diamonds</td>
+          <td>Rp 9.500</td>
         </tr>
-        <tr onclick="toggleSelection(this)">
-          <td>355 Diamonds</td>
-          <td>Rp 45.000</td>
+        <tr onclick="selectDiamond(this)">
+          <td>100 Diamonds</td>
+          <td>Rp 19.000</td>
         </tr>
-        <tr onclick="toggleSelection(this)">
-          <td>720 Diamonds</td>
-          <td>Rp 90.000</td>
+        <tr onclick="selectDiamond(this)">
+          <td>310 Diamonds</td>
+          <td>Rp 58.000</td>
         </tr>
-        <tr onclick="toggleSelection(this)">
-          <td>1450 Diamonds</td>
-          <td>Rp 180.700</td>
+        <tr onclick="selectDiamond(this)">
+          <td>520 Diamonds</td>
+          <td>Rp 97.000</td>
         </tr>
-        <tr onclick="toggleSelection(this)">
+        <tr onclick="selectDiamond(this)">
+          <td>1060 Diamonds</td>
+          <td>Rp 192.000</td>
+        </tr>
+        <tr onclick="selectDiamond(this)">
           <td>2180 Diamonds</td>
-          <td>Rp 270.500</td>
+          <td>Rp 388.000</td>
         </tr>
-        <tr onclick="toggleSelection(this)">
-          <td>3040 Diamonds</td>
-          <td>Rp 450.500</td>
+        <tr onclick="selectDiamond(this)">
+          <td>5600 Diamonds</td>
+          <td>Rp 970.000</td>
         </tr>
-        <tr onclick="toggleSelection(this)">
-          <td>7290 Diamonds</td>
-          <td>Rp 900.000</td>
+        <tr onclick="selectDiamond(this)">
+          <td>6450 Diamonds</td>
+          <td>Rp 1.200.000</td>
+        </tr>
+        <tr onclick="selectDiamond(this)">
+          <td>8300 Diamonds</td>
+          <td>Rp 1.500.000</td>
+        </tr>
+        <tr onclick="selectDiamond(this)">
+          <td>10680 Diamonds</td>
+          <td>Rp 1.920.000</td>
         </tr>
       </tbody>
     </table>
@@ -75,14 +87,17 @@
       </select>
     </div>
     <div class="order">
-      <a href="../checkout.html" class="btn btn-succes" id="orderButton">Order</a>
+      <a href="../login.php" class="btn btn-succes" id="orderButton">Order</a>
     </div>
   </div>
   <script>
-    function toggleSelection(row) {
+    function selectDiamond(row) {
       const rows = document.querySelectorAll(".table tbody tr");
       rows.forEach((r) => r.classList.remove("selected"));
-      row.classList.toggle("selected");
+      row.classList.add("selected");
+      const diamond = row.cells[0].innerText;
+      const price = row.cells[1].innerText;
+      console.log(`Selected: ${diamond} - ${price}`);
     }
   </script>
 </body>
