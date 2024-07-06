@@ -100,7 +100,6 @@
                         $total_games = 0;
                       }
 
-                      $koneksi->close();  // Menutup koneksi database
                       ?>
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                         Total Games
@@ -117,35 +116,6 @@
               </div>
             </div>
 
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                        Tasks
-                      </div>
-                      <div class="row no-gutters align-items-center">
-                        <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                            50%
-                          </div>
-                        </div>
-                        <div class="col">
-                          <div class="progress progress-sm mr-2">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
 
             <!-- Pending Requests Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
@@ -156,12 +126,61 @@
                       <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                         Pending Requests
                       </div>
+                      <?php
+                      $sql = "SELECT status, COUNT(*) as pending from transactions where status='pending'";
+                      $result = $koneksi->query($sql);
+                      if ($result->num_rows > 0) {
+                        // Mendapatkan total game dari hasil query
+                        $row = $result->fetch_assoc();
+                        $total_pending = $row['pending'];
+                      } else {
+                        $total_pending = 0;
+                      }
+
+                      ?>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">
-                        18
+                        <?php echo $total_pending; ?>
                       </div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-comments fa-2x text-gray-300"></i>
+                      <i class="fas fa-clock fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Succes Transaksi -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-dark shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                        Total Pemasukkan
+                      </div>
+                      <?php
+                      $sql = "SELECT total_price, SUM(total_price) as success from transactions where status='success'";
+                      $result = $koneksi->query($sql);
+                      if ($result->num_rows > 0) {
+                        // Mendapatkan total game dari hasil query
+                        $row = $result->fetch_assoc();
+                        $total_success = $row['success'];
+                      } else {
+                        $total_success = 0;
+                      }
+
+                      ?>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <?php
+                        $jumlah_uang = $total_success; // Ganti dengan jumlah uang yang sesuai
+                        $formatted_uang = number_format($jumlah_uang, 0, ',', '.');
+                        echo "Rp " . $formatted_uang;
+                        ?>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-money-bill fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -172,72 +191,49 @@
           <!-- Content Row -->
 
           <div class="row">
-            <!-- Area Chart -->
-            <div class="col-xl-8 col-lg-7">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">
-                    Earnings Overview
-                  </h6>
-                  <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                  </div>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
 
             <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
+            <?php
+            // Pastikan Anda sudah memiliki koneksi ke database
+            $query = "SELECT status, COUNT(*) as count FROM transactions GROUP BY status";
+            $result = $koneksi->query($query);
+
+            $pending = 0;
+            $failed = 0;
+            $success = 0;
+
+            while ($row = mysqli_fetch_assoc($result)) {
+              switch ($row['status']) {
+                case 'pending':
+                  $pending = $row['count'];
+                  break;
+                case 'failed':
+                  $failed = $row['count'];
+                  break;
+                case 'success':
+                  $success = $row['count'];
+                  break;
+              }
+            }
+            ?>
+            <div class="col-xl-12 col-lg-12">
               <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">
-                    Revenue Sources
-                  </h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Transaction Status</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
+                      <div class="dropdown-header">Chart Options:</div>
+                      <a class="dropdown-item" href="#" onclick="updateChartType('pie')">Pie Chart</a>
+                      <a class="dropdown-item" href="#" onclick="updateChartType('doughnut')">Doughnut Chart</a>
                     </div>
                   </div>
                 </div>
-                <!-- Card Body -->
                 <div class="card-body">
-                  <div class="chart-pie pt-4 pb-2">
-                    <canvas id="myPieChart"></canvas>
-                  </div>
-                  <div class="mt-4 text-center small">
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-primary"></i> Direct
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-success"></i> Social
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-info"></i> Referral
-                    </span>
+                  <div class="chart-pie">
+                    <canvas id="transactionStatusChart"></canvas>
                   </div>
                 </div>
               </div>
@@ -251,13 +247,7 @@
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2021</span>
-          </div>
-        </div>
-      </footer>
+      <?php include "./component/footer.php"; ?>
       <!-- End of Footer -->
     </div>
     <!-- End of Content Wrapper -->
@@ -288,7 +278,70 @@
 
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
-  <script src="js/demo/chart-pie-demo.js"></script>
+  <!-- <script src="js/demo/chart-pie-demo.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+  <script>
+    // Gunakan data dari PHP
+    var pending = <?php echo $pending; ?>;
+    var failed = <?php echo $failed; ?>;
+    var success = <?php echo $success; ?>;
+
+    var ctx = document.getElementById('transactionStatusChart').getContext('2d');
+    var myChart;
+
+    function createChart(type) {
+      if (myChart) {
+        myChart.destroy();
+      }
+      myChart = new Chart(ctx, {
+        type: type,
+        data: {
+          labels: ['Pending', 'Failed', 'Success'],
+          datasets: [{
+            data: [pending, failed, success],
+            backgroundColor: ['#ffc107', '#dc3545', '#28a745'],
+            hoverBackgroundColor: ['#e0a800', '#bd2130', '#218838'],
+            hoverBorderColor: "rgba(234, 236, 244, 1)",
+          }],
+        },
+        options: {
+          maintainAspectRatio: false,
+          tooltips: {
+            backgroundColor: "rgb(255,255,255)",
+            bodyFontColor: "#858796",
+            borderColor: '#dddfeb',
+            borderWidth: 1,
+            xPadding: 15,
+            yPadding: 15,
+            displayColors: false,
+            caretPadding: 10,
+          },
+          legend: {
+            display: true,
+            position: 'bottom', // Ini akan menempatkan legend di bawah chart
+            labels: {
+              fontColor: '#858796',
+              usePointStyle: true,
+              padding: 20
+            }
+          },
+          cutoutPercentage: 80,
+        },
+      });
+    }
+
+    function updateChartType(type) {
+      createChart(type);
+    }
+
+    // Initial chart creation
+    createChart('pie');
+    console.log("Pending:", pending);
+    console.log("Failed:", failed);
+    console.log("Success:", success);
+  </script>
 </body>
 
 </html>

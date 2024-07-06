@@ -48,7 +48,7 @@ include '../koneksi.php'; // Adjust the path if needed
                     if (isset($_SESSION['username'])) {
                         $username = $_SESSION['username'];
                         echo '<li class="judul">';
-                        echo '<a href="#" class="btn">';
+                        echo '<a class="btn">';
                         echo "$username"; // Tampilkan nama pengguna atau teks sesuai kebutuhan
                         echo '</a>';
                         echo '</li>';
@@ -166,9 +166,10 @@ include '../koneksi.php'; // Adjust the path if needed
                         </div>
                     </a>
                 </div>
-                
+
                 <div class="wild-rift">
-                    <a href="belanja_costumer/league_of_legends.php">
+                    <!-- <a href="belanja_costumer/league_of_legends.php" disabled> -->
+                    <a>
                         <div class="game">
                             <img class="lol-img" src="img/lol-cover.png" alt="" width="250">
                             <div class="product-title">
@@ -179,7 +180,8 @@ include '../koneksi.php'; // Adjust the path if needed
                 </div>
 
                 <div class="pubg-m">
-                    <a href="belanja_costumer/pubg.php">
+                    <!-- <a href="belanja_costumer/pubg.php"> -->
+                    <a>
                         <div class="game">
                             <img class="pubgm-img" src="img/pubgm-cover.png" alt="" width="250">
                             <div class="product-title">
@@ -190,7 +192,8 @@ include '../koneksi.php'; // Adjust the path if needed
                 </div>
 
                 <div class="cod-m">
-                    <a href="belanja_costumer/codm.php">
+                    <!-- <a href="belanja_costumer/codm.php"> -->
+                    <a>
                         <div class="game">
                             <img class="codm-img" src="img/codm-cover.png" alt="" width="250">
                             <div class="product-title">
@@ -201,7 +204,8 @@ include '../koneksi.php'; // Adjust the path if needed
                 </div>
 
                 <div class="valo">
-                    <a href="belanja_costumer/valorant.php">
+                    <!-- <a href="belanja_costumer/valorant.php"> -->
+                    <a>
                         <div class="game">
                             <img class="valo-img" src="img/valo-cover.png" alt="" width="250">
                             <div class="product-title">
@@ -212,7 +216,8 @@ include '../koneksi.php'; // Adjust the path if needed
                 </div>
 
                 <div class="genshin-impact">
-                    <a href="belanja_costumer/genshin_impact.php">
+                    <!-- <a href="belanja_costumer/genshin_impact.php"> -->
+                    <a>
                         <div class="game">
                             <img class="genshin-img" src="img/genshin-cover.png" alt="" width="250">
                             <div class="product-title">
