@@ -127,7 +127,7 @@
                     </a>
                 </div>
 
-                
+
                 <div class="free-fire">
                     <a href="belanja/free_fire.php">
                         <div class="game">
@@ -138,9 +138,10 @@
                         </div>
                     </a>
                 </div>
-                
+
                 <div class="wild-rift">
-                    <a href="belanja/league_of_legends.php">
+                    <!-- <a href="belanja_costumer/league_of_legends.php" disabled> -->
+                    <a>
                         <div class="game">
                             <img class="lol-img" src="img/lol-cover.png" alt="" width="250">
                             <div class="product-title">
@@ -151,7 +152,8 @@
                 </div>
 
                 <div class="pubg-m">
-                    <a href="belanja/pubg.php">
+                    <!-- <a href="belanja_costumer/pubg.php"> -->
+                    <a>
                         <div class="game">
                             <img class="pubgm-img" src="img/pubgm-cover.png" alt="" width="250">
                             <div class="product-title">
@@ -162,7 +164,8 @@
                 </div>
 
                 <div class="cod-m">
-                    <a href="belanja/codm.php">
+                    <!-- <a href="belanja_costumer/codm.php"> -->
+                    <a>
                         <div class="game">
                             <img class="codm-img" src="img/codm-cover.png" alt="" width="250">
                             <div class="product-title">
@@ -173,7 +176,8 @@
                 </div>
 
                 <div class="valo">
-                    <a href="belanja/valorant.php">
+                    <!-- <a href="belanja_costumer/valorant.php"> -->
+                    <a>
                         <div class="game">
                             <img class="valo-img" src="img/valo-cover.png" alt="" width="250">
                             <div class="product-title">
@@ -184,7 +188,8 @@
                 </div>
 
                 <div class="genshin-impact">
-                    <a href="belanja/gensin_impact.php">
+                    <!-- <a href="belanja_costumer/genshin_impact.php"> -->
+                    <a>
                         <div class="game">
                             <img class="genshin-img" src="img/genshin-cover.png" alt="" width="250">
                             <div class="product-title">

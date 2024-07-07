@@ -67,16 +67,18 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <div class="row mb-3">
-                                    <div class="col-md-3">
-                                        <label for="min">Tanggal Mulai:</label>
-                                        <input type="date" id="min" name="min" class="form-control" placeholder="yyyy-mm-dd">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="max">Tanggal Akhir:</label>
-                                        <input type="date" id="max" name="max" class="form-control" placeholder="yyyy-mm-dd">
-                                    </div>
-                                </div>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>Minimum date:</td>
+                                            <td><input type="date" id="min" name="min"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maximum date:</td>
+                                            <td><input type="date" id="max" name="max"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                                 <?php
                                 include '../koneksi.php';
                                 $sql = "SELECT packages.*, currencies.name AS currency_name, currencies.symbol FROM packages INNER JOIN currencies ON packages.currency_id = currencies.id";
@@ -87,10 +89,10 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama</th>
-                                            <th>Tipe</th>
+                                            <th>Mata Uang</th>
                                             <th>Jumlah</th>
                                             <th>Harga</th>
-                                            <th>Di Buat</th>
+                                            <th>Dibuat</th>
                                             <th>Diubah</th>
                                             <th>Action</th>
                                         </tr>
@@ -99,41 +101,39 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama</th>
-                                            <th>Tipe</th>
+                                            <th>Mata Uang</th>
                                             <th>Jumlah</th>
                                             <th>Harga</th>
-                                            <th>Di Buat</th>
+                                            <th>Dibuat</th>
                                             <th>Diubah</th>
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
-                                    <tbody>
-                                        <?php
-                                        $no = 0;
-                                        if ($result->num_rows > 0) {
-                                            while ($row = $result->fetch_assoc()) {
-                                                $no++;
-                                                echo "<tr>";
-                                                echo "<td>" . $no . "</td>";
-                                                echo "<td>" . $row['name'] . "</td>";
-                                                echo "<td>" . $row['currency_name'] . " / " . $row['symbol'] . "</td>";
-                                                echo "<td>" . $row['amount'] . "</td>";
-                                                echo "<td>" . $row['price'] . "</td>";
-                                                echo "<td>" . $row['created_at'] . "</td>";
-                                                echo "<td>" . $row['updated_at'] . "</td>";
-                                                echo '<td><a href="edit.php?id=' . $row['id'] . '" class="btn btn-warning btn-circle"><i class="fas fa-pen"></i></a><a href="#" class="btn btn-danger btn-circle" data-toggle="modal" data-target="#hapusModal" data-id="' . $row['id'] . '"><i class="fas fa-trash"></i></a></td>';
-                                                echo "</tr>";
+                                    <tbody> <?php
+                                            $no = 0;
+                                            if ($result->num_rows > 0) {
+                                                while ($row = $result->fetch_assoc()) {
+                                                    $no++;
+                                                    echo "<tr>";
+                                                    echo "<td>" . $no . "</td>";
+                                                    echo "<td>" . $row['name'] . "</td>";
+                                                    echo "<td>" . $row['currency_name'] . " / " . $row['symbol'] . "</td>";
+                                                    echo "<td>" . $row['amount'] . "</td>";
+                                                    echo "<td>" . $row['price'] . "</td>";
+                                                    echo "<td>" . $row['created_at'] . "</td>";
+                                                    echo "<td>" . $row['updated_at'] . "</td>";
+                                                    echo '<td><a href="edit.php?id=' . $row['id'] . '" class="btn btn-warning btn-circle"><i class="fas fa-pen"></i></a><a href="#" class="btn btn-danger btn-circle" data-toggle="modal" data-target="#hapusModal" data-id="' . $row['id'] . '"><i class="fas fa-trash"></i></a></td>';
+                                                    echo "</tr>";
+                                                }
+                                            } else {
+                                                echo "<tr><td colspan='8'>Tidak ada data Game</td></tr>";
                                             }
-                                        } else {
-                                            echo "<tr><td colspan='8'>Tidak ada data Game</td></tr>";
-                                        }
-                                        ?>
+                                            ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-
 
                 </div>
                 <!-- /.container-fluid -->
@@ -163,13 +163,7 @@
             </div>
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
+            <?php include "./component/footer.php"; ?>
             <!-- End of Footer -->
 
         </div>
@@ -212,67 +206,32 @@
         });
     </script>
     <script>
+        let minDate, maxDate;
+
+        // Fungsi filter custom untuk mencari data di kolom tanggal antara dua nilai
+        $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+            let min = $('#min').val();
+            let max = $('#max').val();
+            let date = new Date(data[5]); // Pastikan indeks ini sesuai dengan kolom tanggal
+
+            if ((min === "" || new Date(min) <= date) && (max === "" || date <= new Date(max))) {
+                return true;
+            }
+            return false;
+        });
+
         $(document).ready(function() {
-            // Setup - add a text input to each footer cell
-            $('#dataTable thead tr').clone(true).appendTo('#dataTable thead');
-            $('#dataTable thead tr:eq(1) th').each(function(i) {
-                if (i === 5 || i === 6) {
-                    $(this).html('<input type="text" placeholder="Search ' + $(this).text() + '" />');
+            // Inisialisasi DataTables
+            let table = $('#dataTable').DataTable();
 
-                    $('input', this).on('keyup change', function() {
-                        if (table.column(i).search() !== this.value) {
-                            table
-                                .column(i)
-                                .search(this.value)
-                                .draw();
-                        }
-                    });
-                } else {
-                    $(this).html('');
-                }
-            });
-
-            var minDate, maxDate;
-
-            // Custom filtering function which will search data in column four between two values
-            $.fn.dataTable.ext.search.push(
-                function(settings, data, dataIndex) {
-                    var min = minDate.val();
-                    var max = maxDate.val();
-                    var date = new Date(data[5]);
-
-                    if (
-                        (min === null && max === null) ||
-                        (min === null && date <= max) ||
-                        (min <= date && max === null) ||
-                        (min <= date && date <= max)
-                    ) {
-                        return true;
-                    }
-                    return false;
-                }
-            );
-
-            // Create date inputs
-            minDate = new DateTime($('#min'), {
-                format: 'YYYY-MM-DD'
-            });
-            maxDate = new DateTime($('#max'), {
-                format: 'YYYY-MM-DD'
-            });
-
-            // DataTables initialisation
-            var table = $('#dataTable').DataTable({
-                orderCellsTop: true,
-                fixedHeader: true
-            });
-
-            // Refilter the table
-            $('#min, #max').on('change', function() {
+            // Refilter tabel berdasarkan perubahan input tanggal
+            $('#min, #max').change(function() {
                 table.draw();
             });
         });
     </script>
+
+
 
 
 </body>
