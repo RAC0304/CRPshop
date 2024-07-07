@@ -2,27 +2,24 @@
 session_start();
 include '../../koneksi.php';
 
+// Inisialisasi variabel username
+$username = '';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Periksa apakah user_id dari session sudah tersedia
     if (!isset($_SESSION['user_id'])) {
         echo "Error: Session user_id tidak tersedia.";
-        exit(); // Hentikan eksekusi lebih lanjut jika session tidak tersedia
+        exit();
     }
 
-    // Ambil user_id dari session
     $userID = $_SESSION['user_id'];
-
-    // Ambil data dari form
-    $playerID = mysqli_real_escape_string($koneksi, $_POST['playerID']); // Ambil playerID dari form
-    $nominalFF = mysqli_real_escape_string($koneksi, $_POST['nominalFF']);
+    $playerID = mysqli_real_escape_string($koneksi, $_POST['playerID']);
+    $nominalDiamond = mysqli_real_escape_string($koneksi, $_POST['nominalDiamond']);
     $price = mysqli_real_escape_string($koneksi, $_POST['price']);
-    $paymentMethod = mysqli_real_escape_string($koneksi, $_POST['paymentMethod']); 
+    $paymentMethod = mysqli_real_escape_string($koneksi, $_POST['paymentMethod']);
 
-    // Ganti dengan API key yang valid dari RapidAPI
-    $apiKey = "c3b0182d60msh960be433188e44cp126403jsn736e499fa6cc";
-
-    // Set up curl request to API
+    // Validasi Player ID menggunakan API
     $curl = curl_init();
+
     curl_setopt_array($curl, [
         CURLOPT_URL => "https://id-game-checker.p.rapidapi.com/ff-global/{$playerID}",
         CURLOPT_RETURNTRANSFER => true,
@@ -33,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         CURLOPT_CUSTOMREQUEST => "GET",
         CURLOPT_HTTPHEADER => [
             "x-rapidapi-host: id-game-checker.p.rapidapi.com",
-            "x-rapidapi-key: $apiKey"
+            "x-rapidapi-key: c4d6686103mshb4cce097d03c584p16afacjsn51a07fd9bde2" // Ganti dengan API key Anda
         ],
     ]);
 
@@ -43,17 +40,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     curl_close($curl);
 
     if ($err) {
-        echo "Error: Curl error - " . $err;
+        echo "Error: " . $err;
+        exit();
+    } else {
+        $result = json_decode($response, true);
+        if (!$result || !isset($result['success']) || !$result['success']) {
+            echo "Error: Player ID tidak valid.";
+            exit();
+        } else {
+            $username = $result['data']['username'];
+        }
+    }
+
+    // Ambil data dari form
+    $playerID = mysqli_real_escape_string($koneksi, $_POST['playerID']);
+    $nominalDiamond = mysqli_real_escape_string($koneksi, $_POST['nominalDiamond']);
+    $price = mysqli_real_escape_string($koneksi, $_POST['price']);
+    $paymentMethod = mysqli_real_escape_string($koneksi, $_POST['paymentMethod']);
+
+    // Periksa apakah user_id valid
+    $checkUserQuery = "SELECT * FROM users WHERE id = '$userID'";
+    $checkUserResult = mysqli_query($koneksi, $checkUserQuery);
+
+    if (!$checkUserResult || mysqli_num_rows($checkUserResult) == 0) {
+        echo "Error: User dengan ID '$userID' tidak ditemukan.";
         exit();
     }
 
-    $result = json_decode($response, true);
-    if (!$result || !isset($result['success']) || !$result['success']) {
-        echo "Error: Player ID tidak valid.";
+    // Periksa apakah payment_method valid dan dapatkan ID-nya
+    $checkPaymentMethodQuery = "SELECT id FROM payment_methods WHERE id = '$paymentMethod'";
+    $checkPaymentMethodResult = mysqli_query($koneksi, $checkPaymentMethodQuery);
+
+    if (!$checkPaymentMethodResult || mysqli_num_rows($checkPaymentMethodResult) == 0) {
+        echo "Error: Metode pembayaran '$paymentMethod' tidak valid.";
         exit();
     }
 
-    // Ambil currency_id dari tabel currencies berdasarkan nama
+    $paymentMethodRow = mysqli_fetch_assoc($checkPaymentMethodResult);
+    $paymentMethodID = $paymentMethodRow['id'];
+
+    // Simpan data ke dalam tabel packages
     $currencyQuery = "SELECT id FROM currencies WHERE name = 'Diamond - ff'";
     $currencyResult = mysqli_query($koneksi, $currencyQuery);
 
@@ -62,18 +88,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $currency_id = $currencyRow['id'];
         $is_active = 1; // Misalnya, paket selalu aktif
 
-        // Nama paket
-        $name = mysqli_real_escape_string($koneksi, $nominalFF . " Diamonds Free Fire");
-
-        // Simpan data ke dalam tabel packages
+        $name = $nominalDiamond . " Diamond Free Fire";
         $query = "INSERT INTO packages (currency_id, name, amount, price, bonus_amount, is_active, created_at, updated_at) 
-                  VALUES ('$currency_id', '$name', '$nominalFF', '$price', '0', '$is_active', NOW(), NOW())";
+                    VALUES ('$currency_id', '$name', '$nominalDiamond', '$price', '0', '$is_active', NOW(), NOW())";
 
         if (mysqli_query($koneksi, $query)) {
             // Simpan juga ke dalam tabel transactions
             $package_id = mysqli_insert_id($koneksi);
-            $transactionQuery = "INSERT INTO transactions (user_id, package_id, player_id, amount, total_price, status, payment_method, created_at, updated_at)
-                                VALUES ('$userID', '$package_id', '$playerID', '$nominalFF', '$price', 'pending', '$paymentMethod', NOW(), NOW())";
+            $transactionQuery = "INSERT INTO transactions (user_id, package_id, player_id, amount, total_price, status, payment_method_id, created_at, updated_at)
+                                VALUES ('$userID', '$package_id', '$playerID', '$nominalDiamond', '$price', 'pending', '$paymentMethodID', NOW(), NOW())";
 
             if (mysqli_query($koneksi, $transactionQuery)) {
                 // Redirect ke checkout_costumer.php dengan mengirim data via GET
@@ -92,6 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     mysqli_close($koneksi);
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -173,26 +197,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </tr>
                 </tbody>
             </table>
-            <input type="hidden" name="nominalFF" id="nominalFF" />
+            <input type="hidden" name="nominalDiamond" id="nominalDiamond" />
             <input type="hidden" name="price" id="price" />
             <div class="payment-method-container">
                 <label for="paymentMethod" class="input-label">Pilih Metode Pembayaran</label>
-                <select class="form-select" id="paymentMethod" name="paymentMethod">
-                    <option value="Dana">Dana</option>
-                    <option value="Alfamart">Alfamart</option>
-                    <option value="OVO">OVO</option>
-                    <option value="Link Aja">Link Aja</option>
-                    <option value="GoPay">GoPay</option>
-                    <option value="ShopeePay">ShopeePay</option>
-                    <option value="Mandiri">Mandiri</option>
-                    <option value="BNI">BNI</option>
-                    <option value="BCA">BCA</option>
-                    <option value="BRI">BRI</option>
-                </select>
+                <?php
+                $sql = "SELECT * FROM payment_methods";
+                $result = mysqli_query($koneksi, $sql);
+
+                if ($result) {
+                    echo "<select class='form-control' id='paymentMethod' name='paymentMethod'>";
+                    echo "<option value=''>Pilih Metode Pembayaran</option>";
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+                    }
+                    echo "</select>";
+                } else {
+                    echo "<p>Error: " . mysqli_error($koneksi) . "</p>";
+                }
+                ?>
             </div>
             <div class="order">
-                <button type="submit" class="btn btn-danger" id="orderButton">Order</button>
-            </div>
+                <button type="submit" class="btn btn-success" id="orderButton">Order</button>
+      </div>
         </form>
     </div>
 
@@ -208,7 +235,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     type: "GET",
                     headers: {
                         "x-rapidapi-host": "id-game-checker.p.rapidapi.com",
-                        "x-rapidapi-key": "c3b0182d60msh960be433188e44cp126403jsn736e499fa6cc"
+                        "x-rapidapi-key": "c4d6686103mshb4cce097d03c584p16afacjsn51a07fd9bde2"
                     },
                     success: function(response) {
                         if (response && response.success) {
@@ -236,12 +263,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             });
         });
 
-        function selectDiamond(row, nominal, price) {
-            const rows = document.querySelectorAll(".table tbody tr");
-            rows.forEach((r) => r.classList.remove("selected"));
-            row.classList.toggle("selected");
-
-            document.getElementById('nominalFF').value = nominal;
+        function selectDiamond(row, amount, price) {
+            document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
+            row.classList.add('selected');
+            document.getElementById('nominalDiamond').value = amount;
             document.getElementById('price').value = price;
         }
     </script>

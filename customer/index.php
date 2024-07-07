@@ -158,8 +158,7 @@ include '../koneksi.php'; // Adjust the path if needed
                 </div>
 
                 <div class="free-fire">
-                    <!-- <a href="belanja_costumer/free_fire.php"> -->
-                    <a>
+                    <a href="belanja_costumer/free_fire.php">
                         <div class="game">
                             <img class="ff-img" src="img/ff-cover.jpg" alt="" width="250">
                             <div class="product-title">
@@ -249,7 +248,6 @@ include '../koneksi.php'; // Adjust the path if needed
                 <li><img src="img/bni.jpg" alt=""></li>
                 <li><img src="img/bca.jpg" alt=""></li>
                 <li><img src="img/bri.jpg" alt=""></li>
-                <li><img src="img/shoppe.jpg" alt=""></li>
             </ul>
         </div>
         </div>
