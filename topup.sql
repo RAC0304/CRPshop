@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 02, 2024 at 11:34 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Waktu pembuatan: 07 Jul 2024 pada 10.56
+-- Versi server: 10.4.28-MariaDB
+-- Versi PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,39 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `currencies`
+-- Struktur dari tabel `account_numbers`
+--
+
+CREATE TABLE `account_numbers` (
+  `id` int(11) NOT NULL,
+  `payment_method_id` int(11) DEFAULT NULL,
+  `number` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `account_numbers`
+--
+
+INSERT INTO `account_numbers` (`id`, `payment_method_id`, `number`) VALUES
+(1, 1, '1234567890'),
+(2, 1, '2345678901'),
+(3, 1, '3456789012'),
+(4, 2, '081234567890'),
+(5, 2, '082345678901'),
+(6, 3, '083456789012'),
+(7, 3, '084567890123'),
+(8, 3, '085678901234'),
+(9, 4, '086789012345'),
+(10, 4, '087890123456'),
+(11, 4, '088901234567'),
+(12, 5, '9876543210'),
+(13, 5, '8765432109'),
+(14, 5, '7654321098');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `currencies`
 --
 
 CREATE TABLE `currencies` (
@@ -37,7 +69,7 @@ CREATE TABLE `currencies` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `currencies`
+-- Dumping data untuk tabel `currencies`
 --
 
 INSERT INTO `currencies` (`id`, `game_id`, `name`, `symbol`, `created_at`, `updated_at`) VALUES
@@ -52,7 +84,7 @@ INSERT INTO `currencies` (`id`, `game_id`, `name`, `symbol`, `created_at`, `upda
 -- --------------------------------------------------------
 
 --
--- Table structure for table `games`
+-- Struktur dari tabel `games`
 --
 
 CREATE TABLE `games` (
@@ -64,7 +96,7 @@ CREATE TABLE `games` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `games`
+-- Dumping data untuk tabel `games`
 --
 
 INSERT INTO `games` (`id`, `names`, `image`, `created_at`, `updated_at`) VALUES
@@ -79,7 +111,7 @@ INSERT INTO `games` (`id`, `names`, `image`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `packages`
+-- Struktur dari tabel `packages`
 --
 
 CREATE TABLE `packages` (
@@ -95,7 +127,7 @@ CREATE TABLE `packages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `packages`
+-- Dumping data untuk tabel `packages`
 --
 
 INSERT INTO `packages` (`id`, `currency_id`, `name`, `amount`, `price`, `bonus_amount`, `is_active`, `created_at`, `updated_at`) VALUES
@@ -167,12 +199,37 @@ INSERT INTO `packages` (`id`, `currency_id`, `name`, `amount`, `price`, `bonus_a
 (190, 1, '1650 Diamond Mobile Legends', 1650, 165000.00, 0, 1, '2024-07-02 08:22:31', '2024-07-02 08:22:31'),
 (191, 1, ' Diamond Mobile Legends', 0, 0.00, 0, 1, '2024-07-02 09:06:42', '2024-07-02 09:06:42'),
 (192, 1, ' Diamond Mobile Legends', 0, 0.00, 0, 1, '2024-07-02 09:07:44', '2024-07-02 09:07:44'),
-(193, 1, ' Diamond Mobile Legends', 0, 0.00, 0, 1, '2024-07-02 09:08:20', '2024-07-02 09:08:20');
+(193, 1, ' Diamond Mobile Legends', 0, 0.00, 0, 1, '2024-07-02 09:08:20', '2024-07-02 09:08:20'),
+(194, 1, '300 Diamond Mobile Legends', 300, 33000.00, 0, 1, '2024-07-07 08:14:40', '2024-07-07 08:14:40'),
+(195, 1, '300 Diamond Mobile Legends', 300, 33000.00, 0, 1, '2024-07-07 08:51:47', '2024-07-07 08:51:47');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transactions`
+-- Struktur dari tabel `payment_methods`
+--
+
+CREATE TABLE `payment_methods` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `type` enum('bank','e-wallet') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `payment_methods`
+--
+
+INSERT INTO `payment_methods` (`id`, `name`, `type`) VALUES
+(1, 'BCA', 'bank'),
+(2, 'OVO', 'e-wallet'),
+(3, 'GoPay', 'e-wallet'),
+(4, 'ShopeePay', 'e-wallet'),
+(5, 'BNI', 'bank');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `transactions`
 --
 
 CREATE TABLE `transactions` (
@@ -183,31 +240,22 @@ CREATE TABLE `transactions` (
   `amount` int(11) NOT NULL,
   `total_price` decimal(10,2) NOT NULL,
   `status` enum('pending','success','failed') NOT NULL DEFAULT 'pending',
-  `payment_method` varchar(100) DEFAULT NULL,
+  `payment_method_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `transactions`
+-- Dumping data untuk tabel `transactions`
 --
 
-INSERT INTO `transactions` (`id`, `user_id`, `package_id`, `player_id`, `amount`, `total_price`, `status`, `payment_method`, `created_at`, `updated_at`) VALUES
-(109, 4, 184, 23322111, 0, 0.00, 'pending', 'Mandiri', '2024-07-02 06:02:37', '2024-07-02 06:02:37'),
-(110, 4, 185, 2113131231, 10, 2250.00, 'pending', 'BCA', '2024-07-02 06:04:33', '2024-07-02 06:04:33'),
-(111, 4, 186, 66666666, 2250, 297000.00, 'pending', 'BCA', '2024-07-02 06:05:24', '2024-07-02 06:05:24'),
-(112, 4, 187, 66666666, 2000, 264000.00, 'pending', 'Alfamart', '2024-07-02 06:05:34', '2024-07-02 06:05:34'),
-(113, 5, 188, 212121, 1950, 198000.00, 'pending', 'BCA', '2024-07-02 08:01:27', '2024-07-02 08:01:27'),
-(114, 5, 189, 215454, 6450, 530000.00, 'pending', 'Mandiri', '2024-07-02 08:03:18', '2024-07-02 08:03:18'),
-(115, 5, 190, 5434545, 1650, 165000.00, 'pending', 'BCA', '2024-07-02 08:22:31', '2024-07-02 08:22:31'),
-(116, 5, 191, 208267515, 0, 0.00, 'pending', 'Dana', '2024-07-02 09:06:42', '2024-07-02 09:06:42'),
-(117, 5, 192, 208267515, 0, 0.00, 'pending', 'Dana', '2024-07-02 09:07:44', '2024-07-02 09:07:44'),
-(118, 5, 193, 208267515, 0, 0.00, 'pending', 'Dana', '2024-07-02 09:08:20', '2024-07-02 09:08:20');
+INSERT INTO `transactions` (`id`, `user_id`, `package_id`, `player_id`, `amount`, `total_price`, `status`, `payment_method_id`, `created_at`, `updated_at`) VALUES
+(119, 6, 195, 208267515, 300, 33000.00, 'pending', 2, '2024-07-07 08:51:48', '2024-07-07 08:51:48');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -222,7 +270,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `password`, `role`, `created_at`, `updated_at`) VALUES
@@ -230,43 +278,58 @@ INSERT INTO `users` (`id`, `name`, `username`, `email`, `password`, `role`, `cre
 (2, 'lala', 'lulu', 'tes1t@gmail.com', 'lele', 'user', '2024-06-30 07:27:11', '2024-06-30 07:27:11'),
 (3, 'Putraa', 'ardi', 'ardi@gmail.com', '1234', 'user', '2024-07-01 08:30:17', '2024-07-01 08:30:17'),
 (4, 'lelele', 'lalala', '123@gmail.com', 'lala', 'user', '2024-07-01 09:35:20', '2024-07-01 09:35:20'),
-(5, 'produk', 'reee', 'ardi222@gmail.com', '22222', 'user', '2024-07-01 09:41:12', '2024-07-01 09:41:12');
+(5, 'produk', 'reee', 'ardi222@gmail.com', '22222', 'user', '2024-07-01 09:41:12', '2024-07-01 09:41:12'),
+(6, 'admin', 'admin', 'admin@admin.com', 'admin123', 'admin', '2024-07-07 08:09:08', '2024-07-07 08:09:36');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `currencies`
+-- Indeks untuk tabel `account_numbers`
+--
+ALTER TABLE `account_numbers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `payment_method_id` (`payment_method_id`);
+
+--
+-- Indeks untuk tabel `currencies`
 --
 ALTER TABLE `currencies`
   ADD PRIMARY KEY (`id`),
   ADD KEY `game_id` (`game_id`);
 
 --
--- Indexes for table `games`
+-- Indeks untuk tabel `games`
 --
 ALTER TABLE `games`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `names` (`names`);
 
 --
--- Indexes for table `packages`
+-- Indeks untuk tabel `packages`
 --
 ALTER TABLE `packages`
   ADD PRIMARY KEY (`id`),
   ADD KEY `currency_id` (`currency_id`);
 
 --
--- Indexes for table `transactions`
+-- Indeks untuk tabel `payment_methods`
+--
+ALTER TABLE `payment_methods`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `transactions`
 --
 ALTER TABLE `transactions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
-  ADD KEY `package_id` (`package_id`);
+  ADD KEY `package_id` (`package_id`),
+  ADD KEY `payment_method` (`payment_method_id`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -274,61 +337,80 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `currencies`
+-- AUTO_INCREMENT untuk tabel `account_numbers`
+--
+ALTER TABLE `account_numbers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT untuk tabel `currencies`
 --
 ALTER TABLE `currencies`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `games`
+-- AUTO_INCREMENT untuk tabel `games`
 --
 ALTER TABLE `games`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `packages`
+-- AUTO_INCREMENT untuk tabel `packages`
 --
 ALTER TABLE `packages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=196;
 
 --
--- AUTO_INCREMENT for table `transactions`
+-- AUTO_INCREMENT untuk tabel `payment_methods`
 --
-ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
+ALTER TABLE `payment_methods`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT untuk tabel `transactions`
+--
+ALTER TABLE `transactions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+
+--
+-- AUTO_INCREMENT untuk tabel `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `currencies`
+-- Ketidakleluasaan untuk tabel `account_numbers`
+--
+ALTER TABLE `account_numbers`
+  ADD CONSTRAINT `account_numbers_ibfk_1` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_methods` (`id`);
+
+--
+-- Ketidakleluasaan untuk tabel `currencies`
 --
 ALTER TABLE `currencies`
   ADD CONSTRAINT `currencies_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `games` (`id`);
 
 --
--- Constraints for table `packages`
+-- Ketidakleluasaan untuk tabel `packages`
 --
 ALTER TABLE `packages`
   ADD CONSTRAINT `packages_ibfk_1` FOREIGN KEY (`currency_id`) REFERENCES `currencies` (`id`);
 
 --
--- Constraints for table `transactions`
+-- Ketidakleluasaan untuk tabel `transactions`
 --
 ALTER TABLE `transactions`
   ADD CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `transactions_ibfk_2` FOREIGN KEY (`package_id`) REFERENCES `packages` (`id`);
+  ADD CONSTRAINT `transactions_ibfk_2` FOREIGN KEY (`package_id`) REFERENCES `packages` (`id`),
+  ADD CONSTRAINT `transactions_ibfk_3` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_methods` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
