@@ -64,7 +64,8 @@
                         transactions.*, 
                         packages.name AS package_name, 
                         payment_methods.name AS payment_method_name,
-                        account_numbers.number AS nama_rek
+                        account_numbers.number AS nama_rek,
+                        account_numbers.nama_pemilik AS nama_punya
                     FROM 
                         transactions 
                     JOIN 
@@ -101,7 +102,7 @@
                             </tr>
                             <tr>
                                 <th>No. Rek / No. Telp:</th>
-                                <td><?php echo htmlspecialchars($transaction['nama_rek'] ?? 'Tidak tersedia'); ?></td>
+                                <td><?php echo htmlspecialchars($transaction['nama_rek'] . " - " . $transaction['nama_punya'] ?? 'Tidak tersedia'); ?></td>
                             </tr>
                             <tr>
                                 <th>Total Harga:</th>
@@ -124,7 +125,7 @@
             </table>
         </div>
         <div class="order-button">
-            <a href="../index.php"> <button type="button" class="btn btn-primary">KLIK UNTUK MEMESAN</button>
+            <a href="../index.php"> <button type="button" class="btn btn-primary">KEMBALI KE HOME</button>
             </a>
         </div>
     </main>

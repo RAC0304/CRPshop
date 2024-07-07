@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     CURLOPT_CUSTOMREQUEST => "GET",
     CURLOPT_HTTPHEADER => [
       "x-rapidapi-host: id-game-checker.p.rapidapi.com",
-      "x-rapidapi-key: c3b0182d60msh960be433188e44cp126403jsn736e499fa6cc" // Ganti dengan API key Anda
+      "x-rapidapi-key: c4d6686103mshb4cce097d03c584p16afacjsn51a07fd9bde2" // Ganti dengan API key Anda
     ],
   ]);
 
@@ -52,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $username = $result['data']['username'];
     }
   }
+
   // Ambil data dari form
   $playerID = mysqli_real_escape_string($koneksi, $_POST['playerID']);
   $nominalDiamond = mysqli_real_escape_string($koneksi, $_POST['nominalDiamond']);
@@ -64,11 +65,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (!$checkUserResult || mysqli_num_rows($checkUserResult) == 0) {
     echo "Error: User dengan ID '$userID' tidak ditemukan.";
-    exit(); // Hentikan eksekusi lebih lanjut jika user_id tidak valid
+    exit();
   }
 
   // Periksa apakah payment_method valid dan dapatkan ID-nya
-  $checkPaymentMethodQuery = "SELECT id FROM payment_methods WHERE name = '$paymentMethod'";
+  $checkPaymentMethodQuery = "SELECT id FROM payment_methods WHERE id = '$paymentMethod'";
   $checkPaymentMethodResult = mysqli_query($koneksi, $checkPaymentMethodQuery);
 
   if (!$checkPaymentMethodResult || mysqli_num_rows($checkPaymentMethodResult) == 0) {
@@ -90,13 +91,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $name = $nominalDiamond . " Diamond Mobile Legends";
     $query = "INSERT INTO packages (currency_id, name, amount, price, bonus_amount, is_active, created_at, updated_at) 
-                VALUES ('$currency_id', '$name', '$nominalDiamond', '$price', '0', '$is_active', NOW(), NOW())";
+                    VALUES ('$currency_id', '$name', '$nominalDiamond', '$price', '0', '$is_active', NOW(), NOW())";
 
     if (mysqli_query($koneksi, $query)) {
       // Simpan juga ke dalam tabel transactions
       $package_id = mysqli_insert_id($koneksi);
       $transactionQuery = "INSERT INTO transactions (user_id, package_id, player_id, amount, total_price, status, payment_method_id, created_at, updated_at)
-                            VALUES ('$userID', '$package_id', '$playerID', '$nominalDiamond', '$price', 'pending', '$paymentMethodID', NOW(), NOW())";
+                                VALUES ('$userID', '$package_id', '$playerID', '$nominalDiamond', '$price', 'pending', '$paymentMethodID', NOW(), NOW())";
 
       if (mysqli_query($koneksi, $transactionQuery)) {
         // Redirect ke checkout_costumer.php dengan mengirim data via GET
@@ -115,6 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   mysqli_close($koneksi);
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -205,11 +207,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result->num_rows > 0) { ?>
           <select class="form-select" id="paymentMethod" name="paymentMethod" required>
-            <option value="" disabled selected>Select Payment Method</option> <?php
-                                                                              while ($row = $result->fetch_assoc()) {
-                                                                                echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
-                                                                              }
-                                                                              ?>
+            <option value="" disabled selected>Select Payment Method</option>
+            <?php
+            while ($row = $result->fetch_assoc()) {
+              echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
+            }
+            ?>
           </select>
         <?php } else { ?>
           <p>No payment methods available.</p> <?php } ?>
@@ -233,7 +236,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           type: "GET",
           headers: {
             "x-rapidapi-host": "id-game-checker.p.rapidapi.com",
-            "x-rapidapi-key": "c3b0182d60msh960be433188e44cp126403jsn736e499fa6cc" // Ganti dengan API key Anda
+            "x-rapidapi-key": "c4d6686103mshb4cce097d03c584p16afacjsn51a07fd9bde2" // Ganti dengan API key Anda
           },
           success: function(response) {
             if (response.success && response.data.username) {
