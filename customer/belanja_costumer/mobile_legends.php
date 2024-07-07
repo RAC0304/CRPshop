@@ -67,6 +67,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit(); // Hentikan eksekusi lebih lanjut jika user_id tidak valid
   }
 
+  // Periksa apakah payment_method valid dan dapatkan ID-nya
+  $checkPaymentMethodQuery = "SELECT id FROM payment_methods WHERE name = '$paymentMethod'";
+  $checkPaymentMethodResult = mysqli_query($koneksi, $checkPaymentMethodQuery);
+
+  if (!$checkPaymentMethodResult || mysqli_num_rows($checkPaymentMethodResult) == 0) {
+    echo "Error: Metode pembayaran '$paymentMethod' tidak valid.";
+    exit();
+  }
+
+  $paymentMethodRow = mysqli_fetch_assoc($checkPaymentMethodResult);
+  $paymentMethodID = $paymentMethodRow['id'];
+
   // Simpan data ke dalam tabel packages
   $currencyQuery = "SELECT id FROM currencies WHERE name = 'Diamond - ml'";
   $currencyResult = mysqli_query($koneksi, $currencyQuery);
@@ -83,8 +95,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (mysqli_query($koneksi, $query)) {
       // Simpan juga ke dalam tabel transactions
       $package_id = mysqli_insert_id($koneksi);
-      $transactionQuery = "INSERT INTO transactions (user_id, package_id, player_id, amount, total_price, status, payment_method, created_at, updated_at)
-                            VALUES ('$userID', '$package_id', '$playerID', '$nominalDiamond', '$price', 'pending', '$paymentMethod', NOW(), NOW())";
+      $transactionQuery = "INSERT INTO transactions (user_id, package_id, player_id, amount, total_price, status, payment_method_id, created_at, updated_at)
+                            VALUES ('$userID', '$package_id', '$playerID', '$nominalDiamond', '$price', 'pending', '$paymentMethodID', NOW(), NOW())";
 
       if (mysqli_query($koneksi, $transactionQuery)) {
         // Redirect ke checkout_costumer.php dengan mengirim data via GET
@@ -183,18 +195,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <input type="hidden" name="price" id="price" />
       <div class="payment-method-container">
         <label for="paymentMethod" class="input-label">Pilih Metode Pembayaran</label>
-        <select class="form-select" id="paymentMethod" name="paymentMethod" required>
-          <option value="Dana">Dana</option>
-          <option value="Alfamart">Alfamart</option>
-          <option value="OVO">OVO</option>
-          <option value="Link Aja">Link Aja</option>
-          <option value="GoPay">GoPay</option>
-          <option value="ShopeePay">ShopeePay</option>
-          <option value="Mandiri">Mandiri</option>
-          <option value="BNI">BNI</option>
-          <option value="BCA">BCA</option>
-          <option value="BRI">BRI</option>
-        </select>
+        <?php
+        $sql = "SELECT * FROM payment_methods";
+        $result = $koneksi->query($sql);
+
+        if (!$result) {
+          die("Error in SQL query: " . $koneksi->error);
+        }
+
+        if ($result->num_rows > 0) { ?>
+          <select class="form-select" id="paymentMethod" name="paymentMethod" required>
+            <option value="" disabled selected>Select Payment Method</option> <?php
+                                                                              while ($row = $result->fetch_assoc()) {
+                                                                                echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
+                                                                              }
+                                                                              ?>
+          </select>
+        <?php } else { ?>
+          <p>No payment methods available.</p> <?php } ?>
+
       </div>
       <div class="order">
         <button type="submit" class="btn btn-success" id="orderButton">Order</button>

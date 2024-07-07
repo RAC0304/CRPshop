@@ -54,45 +54,66 @@
         <div class="table-container">
             <table class="table">
                 <?php
-                // Ambil data transaksi dari database berdasarkan user_id
                 include '../../koneksi.php';
 
                 if (isset($_SESSION['user_id'])) {
                     $userID = $_SESSION['user_id'];
 
-                    // Query untuk mengambil data transaksi terakhir dari user yang login dan join dengan tabel packages
-                    $transactionQuery = "
-                    SELECT transactions.*, packages.name AS package_name 
-                    FROM transactions 
-                    JOIN packages ON transactions.package_id = packages.id 
-                    WHERE transactions.user_id = '$userID' 
-                    ORDER BY transactions.created_at DESC 
-                    LIMIT 1
-                ";
-                    $transactionResult = mysqli_query($koneksi, $transactionQuery);
+                    // Menggunakan prepared statement untuk mencegah SQL injection
+                    $transactionQuery = "SELECT 
+                        transactions.*, 
+                        packages.name AS package_name, 
+                        payment_methods.name AS payment_method_name,
+                        account_numbers.number AS nama_rek
+                    FROM 
+                        transactions 
+                    JOIN 
+                        packages ON transactions.package_id = packages.id 
+                    JOIN 
+                        payment_methods ON transactions.payment_method_id = payment_methods.id
+                    LEFT JOIN 
+                        account_numbers ON payment_methods.id = account_numbers.payment_method_id
+                    WHERE 
+                        transactions.user_id = ?
+                    ORDER BY 
+                        transactions.created_at DESC 
+                    LIMIT 1";
 
-                    if ($transactionResult && mysqli_num_rows($transactionResult) > 0) {
-                        $transaction = mysqli_fetch_assoc($transactionResult);
+                    if ($stmt = mysqli_prepare($koneksi, $transactionQuery)) {
+                        mysqli_stmt_bind_param($stmt, "i", $userID);
+                        mysqli_stmt_execute($stmt);
+                        $result = mysqli_stmt_get_result($stmt);
+
+                        if ($result && mysqli_num_rows($result) > 0) {
+                            $transaction = mysqli_fetch_assoc($result);
                 ?>
-                        <tr>
-                            <th>Player ID:</th>
-                            <td><?php echo htmlspecialchars($transaction['player_id']); ?></td>
-                        </tr>
-                        <tr>
-                            <th>Nominal:</th>
-                            <td><?php echo htmlspecialchars($transaction['package_name']); ?></td>
-                        </tr>
-                        <tr>
-                            <th>Pembayaran:</th>
-                            <td><?php echo htmlspecialchars($transaction['payment_method']); ?></td>
-                        </tr>
-                        <tr>
-                            <th>Total Harga:</th>
-                            <td>Rp <?php echo number_format($transaction['total_price'], 0, ',', '.'); ?></td>
-                        </tr>
+                            <tr>
+                                <th>Player ID:</th>
+                                <td><?php echo htmlspecialchars($transaction['player_id']); ?></td>
+                            </tr>
+                            <tr>
+                                <th>Nominal:</th>
+                                <td><?php echo htmlspecialchars($transaction['package_name']); ?></td>
+                            </tr>
+                            <tr>
+                                <th>Pembayaran:</th>
+                                <td><?php echo htmlspecialchars($transaction['payment_method_name']); ?></td>
+                            </tr>
+                            <tr>
+                                <th>No. Rek / No. Telp:</th>
+                                <td><?php echo htmlspecialchars($transaction['nama_rek'] ?? 'Tidak tersedia'); ?></td>
+                            </tr>
+                            <tr>
+                                <th>Total Harga:</th>
+                                <td>Rp <?php echo number_format($transaction['total_price'], 0, ',', '.'); ?></td>
+                            </tr>
                 <?php
+                        } else {
+                            echo "<tr><td colspan='2'>Data transaksi tidak ditemukan.</td></tr>";
+                        }
+                        mysqli_stmt_close($stmt);
                     } else {
-                        echo "<tr><td colspan='2'>Data transaksi tidak ditemukan.</td></tr>";
+                        echo "<tr><td colspan='2'>Error dalam persiapan query: " . mysqli_error($koneksi) . "</td></tr>";
                     }
 
                     mysqli_close($koneksi);
@@ -103,7 +124,8 @@
             </table>
         </div>
         <div class="order-button">
-            <button type="button" class="btn btn-primary">KLIK UNTUK MEMESAN</button>
+            <a href="../index.php"> <button type="button" class="btn btn-primary">KLIK UNTUK MEMESAN</button>
+            </a>
         </div>
     </main>
     <footer>

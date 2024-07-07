@@ -229,7 +229,7 @@
     <div class="copy">
         <div class="wrap">
             <div class="copyright">
-                &copy;2022 All Right Reserved
+                <span>Copyright &copy; CRPShop <span id="currentYear"></span></span>
             </div>
             <div class="sosmed">
                 <div class="instagram">
@@ -252,6 +252,9 @@
     </div>
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
 </body>
 
 </html>

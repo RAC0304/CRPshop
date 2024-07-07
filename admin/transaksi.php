@@ -80,13 +80,16 @@
                                 $sql = "SELECT
                                     tp.name AS package_name,
                                     tu.name AS user_name,
-                                    tt.* 
+                                    pm.name AS payment_method,
+                                    tt.*
                                 FROM
-                                    packages tp
+                                    transactions tt
                                 JOIN
-                                    transactions tt ON tp.id = tt.package_id
+                                    packages tp ON tp.id = tt.package_id
                                 JOIN
-                                    users tu ON tt.user_id = tu.id;
+                                    users tu ON tt.user_id = tu.id
+                                JOIN
+                                    payment_methods pm ON tt.payment_method_id = pm.id;
                                 ";
                                 $result = $koneksi->query($sql);
 
