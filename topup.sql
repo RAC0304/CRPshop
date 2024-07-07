@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 07 Jul 2024 pada 10.56
+-- Waktu pembuatan: 07 Jul 2024 pada 11.31
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -30,28 +30,20 @@ SET time_zone = "+00:00";
 CREATE TABLE `account_numbers` (
   `id` int(11) NOT NULL,
   `payment_method_id` int(11) DEFAULT NULL,
-  `number` varchar(20) NOT NULL
+  `number` varchar(20) NOT NULL,
+  `nama_pemilik` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `account_numbers`
 --
 
-INSERT INTO `account_numbers` (`id`, `payment_method_id`, `number`) VALUES
-(1, 1, '1234567890'),
-(2, 1, '2345678901'),
-(3, 1, '3456789012'),
-(4, 2, '081234567890'),
-(5, 2, '082345678901'),
-(6, 3, '083456789012'),
-(7, 3, '084567890123'),
-(8, 3, '085678901234'),
-(9, 4, '086789012345'),
-(10, 4, '087890123456'),
-(11, 4, '088901234567'),
-(12, 5, '9876543210'),
-(13, 5, '8765432109'),
-(14, 5, '7654321098');
+INSERT INTO `account_numbers` (`id`, `payment_method_id`, `number`, `nama_pemilik`) VALUES
+(1, 1, '2060650562', 'CHIESA ANUGRAH DWITAMA'),
+(2, 5, '1559972122', 'RENDY ARIESTA CHANDRA'),
+(3, 3, '081287905057', 'RENDY ARIESTA CHANDRA'),
+(4, 2, '082299914596', 'PUTRA ARDIANSYAH'),
+(5, 4, '0895351179862', 'CHIESA ANUGRAH DWITAMA');
 
 -- --------------------------------------------------------
 
@@ -201,7 +193,9 @@ INSERT INTO `packages` (`id`, `currency_id`, `name`, `amount`, `price`, `bonus_a
 (192, 1, ' Diamond Mobile Legends', 0, 0.00, 0, 1, '2024-07-02 09:07:44', '2024-07-02 09:07:44'),
 (193, 1, ' Diamond Mobile Legends', 0, 0.00, 0, 1, '2024-07-02 09:08:20', '2024-07-02 09:08:20'),
 (194, 1, '300 Diamond Mobile Legends', 300, 33000.00, 0, 1, '2024-07-07 08:14:40', '2024-07-07 08:14:40'),
-(195, 1, '300 Diamond Mobile Legends', 300, 33000.00, 0, 1, '2024-07-07 08:51:47', '2024-07-07 08:51:47');
+(195, 1, '300 Diamond Mobile Legends', 300, 33000.00, 0, 1, '2024-07-07 08:51:47', '2024-07-07 08:51:47'),
+(196, 1, '300 Diamond Mobile Legends', 300, 33000.00, 0, 1, '2024-07-07 09:25:45', '2024-07-07 09:25:45'),
+(197, 1, '1125 Diamond Mobile Legends', 1125, 115500.00, 0, 1, '2024-07-07 09:28:12', '2024-07-07 09:28:12');
 
 -- --------------------------------------------------------
 
@@ -250,7 +244,9 @@ CREATE TABLE `transactions` (
 --
 
 INSERT INTO `transactions` (`id`, `user_id`, `package_id`, `player_id`, `amount`, `total_price`, `status`, `payment_method_id`, `created_at`, `updated_at`) VALUES
-(119, 6, 195, 208267515, 300, 33000.00, 'pending', 2, '2024-07-07 08:51:48', '2024-07-07 08:51:48');
+(119, 6, 195, 208267515, 300, 33000.00, 'pending', 2, '2024-07-07 08:51:48', '2024-07-07 08:51:48'),
+(120, 2, 196, 208267515, 300, 33000.00, 'pending', 1, '2024-07-07 09:25:45', '2024-07-07 09:25:45'),
+(121, 2, 197, 208267515, 1125, 115500.00, 'pending', 1, '2024-07-07 09:28:12', '2024-07-07 09:28:12');
 
 -- --------------------------------------------------------
 
@@ -344,7 +340,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `account_numbers`
 --
 ALTER TABLE `account_numbers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `currencies`
@@ -362,7 +358,7 @@ ALTER TABLE `games`
 -- AUTO_INCREMENT untuk tabel `packages`
 --
 ALTER TABLE `packages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=196;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=198;
 
 --
 -- AUTO_INCREMENT untuk tabel `payment_methods`
@@ -374,7 +370,7 @@ ALTER TABLE `payment_methods`
 -- AUTO_INCREMENT untuk tabel `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
