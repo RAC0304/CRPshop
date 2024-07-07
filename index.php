@@ -129,7 +129,8 @@
 
 
                 <div class="free-fire">
-                    <a href="belanja/free_fire.php">
+                    <!-- <a href="belanja/free_fire.php"> -->
+                    <a>
                         <div class="game">
                             <img class="ff-img" src="img/ff-cover.jpg" alt="" width="250">
                             <div class="product-title">
