@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <i class="fas fa-home"></i>
       </a>
     </div>
-    <h2>Register Dulu Bro</h2>
+    <h2>Register</h2>
     <form id="registrationForm" action="register.php" method="post">
       <div class="user-box">
         <input type="email" name="email" id="email" required />

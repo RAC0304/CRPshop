@@ -31,7 +31,7 @@
         <i class="fas fa-home"></i>
       </a>
     </div>
-    <h2>Login Dulu Bre</h2>
+    <h2>Login</h2>
     <form action="proses_login.php" method="POST">
       <div class="user-box">
         <input type="text" name="username" required />
