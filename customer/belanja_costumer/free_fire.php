@@ -126,6 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Daftar Harga Diamonds Free Fire</title>
     <link rel="stylesheet" href="harga.css" />
+    <link rel="icon" type="image/x-icon" href="../../img/logo.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
